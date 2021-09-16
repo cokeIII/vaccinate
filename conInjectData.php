@@ -104,6 +104,20 @@
                                                             <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
                                                             ไม่ประสงค์ฉีด
                                                         </div>
+                                                        <div>
+                                                            <input type="radio" name="inject" id="covid19" value="ได้รับเชื้อไวรัสโควิด 19" class="no-inject" required>
+                                                            เคยติดเชื้อไวรัสโคโรนา 2019
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center mt-3" id="covid19Date">
+                                            <div class="col-md-12">
+                                                <div class="card border border-dark">
+                                                    <div class="card-body">
+                                                        <label>ได้รับเชื้อในวันที่</label>
+                                                        <input type="date" name="covid19" id="covid19" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +173,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>เลือกอำเภอ</label>
-                                                                <select name="amphure" id="amphure">
+                                                                <select name="amphure" id="amphure" class="form-control">
                                                                     <option value="">-- กรุณาเลือกอำเภอ --</option>
                                                                 </select>
                                                             </div>
@@ -188,8 +202,10 @@
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
+        $("#amphure").select2()
         $("#province").select2()
         $("#parentOther").hide()
+        $("#covid19Date").hide()
         $("#injectContent").hide()
         $("#injectContentOther").hide()
         $(document).on('click', '#parentOtherR', function() {
@@ -201,10 +217,12 @@
         $(document).on('click', "#inject", function() {
             $("#injectContent").fadeIn()
             $("#injectContentOther").hide()
+            $("#covid19Date").hide()
         })
         $(document).on('click', ".no-inject", function() {
             $("#injectContent").hide()
             $("#injectContentOther").hide()
+            $("#covid19Date").hide()
         })
         $(document).on('click', ".delListInject", function() {
             let indexList = $(this).attr("val")
@@ -214,8 +232,20 @@
         $(document).on('click', "#domicileInject", function() {
             $("#injectContentOther").fadeIn()
         })
-        $(document).on('change','#province',function(){
-
+        $(document).on('click', "#covid19", function() {
+            $("#covid19Date").fadeIn()
+        })
+        $(document).on('change', '#province', function() {
+            $.ajax({
+                type: "POST",
+                url: "getAddress.php",
+                data: {
+                    getAumF:$("#province").val()
+                },
+                success: function(result) {
+                    $("#amphure").html(result)
+                }
+            });
         })
         let listCount = 1;
         $(document).on('click', '#addListInject', function() {

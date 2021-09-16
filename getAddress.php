@@ -2,10 +2,10 @@
 require_once "connect.php";
 $opt = "";
 if (!empty($_POST["getAumF"])) {
-    $province_id  = $_POST["province_id"];
+    $province_id  = $_POST["getAumF"];
     $sql = "select * from amphure where province_id = '$province_id'";
     $res = mysqli_query($conn, $sql);
-    $opt = '<option value="">-- กรุณาเลือกอำเภอ</option>';
+    $opt = '<option value="">-- กรุณาเลือกอำเภอ --</option>';
     while ($row = mysqli_fetch_array($res)) {
         $opt .= '<option value="' . $row["amphure_id"] . '">' . $row["amphure_name"] . '</option>';
     }
