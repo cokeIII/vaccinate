@@ -10,7 +10,7 @@ if (!empty($_POST["getAumF"])) {
         $opt .= '<option value="' . $row["amphure_id"] . '">' . $row["amphure_name"] . '</option>';
     }
 } else if (!empty($_POST["getTum"])) {
-    $sql = "select * from tumbol";
+    $sql = "select * from tumbol t,amphure a where t.amphure_id = a.amphure_id";
     $res = mysqli_query($conn, $sql);
     $opt = '<option value="">-- กรุณาเลือกตำบล --</option>';
     while ($row = mysqli_fetch_array($res)) {

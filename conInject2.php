@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>ชื่อ</label>
-                                        <input type="text" name="parent_th_name" id="parent_th_name" class="form-control mt-1" placeholder="">
+                                        <input value="" type="text" name="parent_th_name" id="parent_th_name" class="form-control mt-1" placeholder="">
                                     </div>
                                     <div class="col-md-3">
                                         <label>สกุล</label>
@@ -71,29 +71,20 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <?php
-                                        $sqlTum = "select * from tumbol";
-                                        $resTum = mysqli_query($conn, $sqlTum);
+                                        // $sqlTum = "select * from tumbol t,amphure a where t.amphure_id = a.amphure_id";
+                                        // $resTum = mysqli_query($conn, $sqlTum);
                                         ?>
-                                        <label for="">ตำบล</label>
+                                        <!-- <label for="">ตำบล</label>
                                         <select name="tumbol" id="tumbol" class="form-control">
                                             <option value="">-- กรุณาเลือกตำบล --</option>
-                                            <?php while ($rowTum = mysqli_fetch_array($resTum)) { ?>
-                                                <option value="<?php echo $rowTum["tumbol_id"]; ?>"><?php echo $rowTum["tumbol_name"]; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                            <?php //while ($rowTum = mysqli_fetch_array($resTum)) { ?>
+                                                <option value="<?php //echo $rowTum["tumbol_id"]; ?>"><?php //echo $rowTum["tumbol_name"] . "(อ." . $rowTum["amphure_name"] . ")"; ?></option>
+                                            <?php //} ?>
+                                        </select> -->
                                     </div>
                                     <div class="col-md-4">
-                                        <?php
-                                        $sqlTum = "select * from tumbol";
-                                        $resTum = mysqli_query($conn, $sqlTum);
-                                        ?>
-                                        <label for="">ตำบล</label>
-                                        <select name="tumbol" id="tumbol" class="form-control">
-                                            <option value="">-- กรุณาเลือกตำบล --</option>
-                                            <?php while ($rowTum = mysqli_fetch_array($resTum)) { ?>
-                                                <option value="<?php echo $rowTum["tumbol_id"]; ?>"><?php echo $rowTum["tumbol_name"]; ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <label for="">อำเภอ</label>
+                                        <input type="text" name="amphure" id="amphure" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -109,15 +100,30 @@
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
-        $.ajax({
-            type: "POST",
-            url: "getAddress.php",
-            data: {
-
-            },
-            success: function(result) {
-                console.log(result)
-            }
-        });
+        $("#tumbol").select2()
+        $(document).on('change', '#tumbol', function() {
+            $.ajax({
+                type: "POST",
+                url: "getAddress.php",
+                data: {
+                    getTum: true
+                },
+                success: function(result) {
+                    console.log(result)
+                }
+            });
+        })
+        // $(document).on('change', '#tumbol', function() {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "getAddress.php",
+        //         data: {
+        //             getAum: $("#tumbol").val()
+        //         },
+        //         success: function(result) {
+        //             console.log(result)
+        //         }
+        //     });
+        // })
     })
 </script>

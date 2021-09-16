@@ -40,6 +40,7 @@ while ($row = mysqli_fetch_array($res)) {
     $street = $row["street"];
     $tumbol_id = $row["tumbol_id"];
     $id_card_pic = $row["id_card_pic"];
+
     $sqlStd = "replace into students (
         student_id,
         perfix_id,
@@ -72,7 +73,6 @@ while ($row = mysqli_fetch_array($res)) {
             '$moo',
             '$street',
             '$tumbol_id'
-
         )";
 
     $resStd = mysqli_query($conn, $sqlStd);
@@ -81,6 +81,8 @@ while ($row = mysqli_fetch_array($res)) {
         if ($stdCount == $countQuery) {
             echo "ok";
         }
+    } else {
+        echo $sqlStd;
     }
 }
 

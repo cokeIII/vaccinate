@@ -92,18 +92,18 @@
                                                             <input type="radio" name="inject" id="inject" value="ฉีดแล้ว" class="" required>
                                                             ฉีดแล้ว
                                                         </div>
-                                                        <!-- <div>
+                                                        <div>
                                                             <input type="radio" name="inject" id="notInject" value="ยังไม่ได้ฉีด" class="no-inject" required>
                                                             ประสงค์จะฉีด
-                                                        </div> -->
+                                                        </div>
                                                         <div>
                                                             <input type="radio" name="inject" id="domicileInject" value="ประสงค์ฉีดที่ภูมิลำเนา" class="no-inject" required>
                                                             ประสงค์ฉีดที่ภูมิลำเนา
                                                         </div>
-                                                        <!-- <div>
+                                                        <div>
                                                             <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
                                                             ไม่ประสงค์ฉีด
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,8 +146,10 @@
                                                         $resOther = mysqli_query($conn, $sqlOther);
 
                                                         ?>
+                                                        <hr>
                                                         <div class="row">
                                                             <div class="col-md-6">
+                                                                <label>เลือกจังหวัด</label>
                                                                 <select name="province" id="province" class="form-control">
                                                                     <option value="">-- เลือกจังหวัด --</option>
                                                                     <?php while ($rowOther = mysqli_fetch_array($resOther)) { ?>
@@ -155,10 +157,13 @@
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6"></div>
+                                                            <div class="col-md-6">
+                                                                <label>เลือกอำเภอ</label>
+                                                                <select name="amphure" id="amphure">
+                                                                    <option value="">-- กรุณาเลือกอำเภอ --</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,6 +188,7 @@
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
+        $("#province").select2()
         $("#parentOther").hide()
         $("#injectContent").hide()
         $("#injectContentOther").hide()
@@ -194,17 +200,22 @@
         })
         $(document).on('click', "#inject", function() {
             $("#injectContent").fadeIn()
+            $("#injectContentOther").hide()
         })
         $(document).on('click', ".no-inject", function() {
             $("#injectContent").hide()
+            $("#injectContentOther").hide()
         })
         $(document).on('click', ".delListInject", function() {
             let indexList = $(this).attr("val")
             $("#ListInject" + indexList).remove()
             listCount--
         })
-        $(document).on('click', ".domicileInject", function() {
+        $(document).on('click', "#domicileInject", function() {
             $("#injectContentOther").fadeIn()
+        })
+        $(document).on('change','#province',function(){
+
         })
         let listCount = 1;
         $(document).on('click', '#addListInject', function() {
