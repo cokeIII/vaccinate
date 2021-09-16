@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "chontech2020!";
 $db = "vaccinate";
 // Create connection
 $conn = new mysqli($servername, $username, $password,$db);
