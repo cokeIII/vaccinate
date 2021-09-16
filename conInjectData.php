@@ -83,7 +83,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="row justify-content-center mt-3">
+                                        <div class="row justify-content-center mt-3" id="">
                                             <div class="col-md-12">
                                                 <div class="card border border-dark">
                                                     <div class="card-body">
@@ -92,18 +92,18 @@
                                                             <input type="radio" name="inject" id="inject" value="ฉีดแล้ว" class="" required>
                                                             ฉีดแล้ว
                                                         </div>
-                                                        <div>
+                                                        <!-- <div>
                                                             <input type="radio" name="inject" id="notInject" value="ยังไม่ได้ฉีด" class="no-inject" required>
                                                             ประสงค์จะฉีด
-                                                        </div>
+                                                        </div> -->
                                                         <div>
                                                             <input type="radio" name="inject" id="domicileInject" value="ประสงค์ฉีดที่ภูมิลำเนา" class="no-inject" required>
                                                             ประสงค์ฉีดที่ภูมิลำเนา
                                                         </div>
-                                                        <div>
+                                                        <!-- <div>
                                                             <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
                                                             ไม่ประสงค์ฉีด
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +137,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center mt-3" id="injectContent">
+                                        <div class="row justify-content-center mt-3" id="injectContentOther">
                                             <div class="col-md-12">
                                                 <div class="card border border-dark">
                                                     <div class="card-body">
@@ -185,6 +185,7 @@
     $(document).ready(function() {
         $("#parentOther").hide()
         $("#injectContent").hide()
+        $("#injectContentOther").hide()
         $(document).on('click', '#parentOtherR', function() {
             $("#parentOther").fadeIn()
         })
@@ -201,6 +202,9 @@
             let indexList = $(this).attr("val")
             $("#ListInject" + indexList).remove()
             listCount--
+        })
+        $(document).on('click', ".domicileInject", function() {
+            $("#injectContentOther").fadeIn()
         })
         let listCount = 1;
         $(document).on('click', '#addListInject', function() {

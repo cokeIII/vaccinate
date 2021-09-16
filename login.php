@@ -23,7 +23,7 @@ if ($username == "admin" && $password == "12345678") {
         $_SESSION["gender_id"] = $row["gender_id"];
         $_SESSION["group_age"] = $row["group_age"];
         $_SESSION["status"] = "student";
-        header("location: conInject.php");
+        header("location: conInjectData.php");
     } else {
         header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
     }

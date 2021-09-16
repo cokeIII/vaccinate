@@ -70,9 +70,29 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <?php
+                                        $sqlTum = "select * from tumbol";
+                                        $resTum = mysqli_query($conn, $sqlTum);
+                                        ?>
                                         <label for="">ตำบล</label>
-                                        <select name="tumbol" id="tumbol">
-                                            
+                                        <select name="tumbol" id="tumbol" class="form-control">
+                                            <option value="">-- กรุณาเลือกตำบล --</option>
+                                            <?php while ($rowTum = mysqli_fetch_array($resTum)) { ?>
+                                                <option value="<?php echo $rowTum["tumbol_id"]; ?>"><?php echo $rowTum["tumbol_name"]; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <?php
+                                        $sqlTum = "select * from tumbol";
+                                        $resTum = mysqli_query($conn, $sqlTum);
+                                        ?>
+                                        <label for="">ตำบล</label>
+                                        <select name="tumbol" id="tumbol" class="form-control">
+                                            <option value="">-- กรุณาเลือกตำบล --</option>
+                                            <?php while ($rowTum = mysqli_fetch_array($resTum)) { ?>
+                                                <option value="<?php echo $rowTum["tumbol_id"]; ?>"><?php echo $rowTum["tumbol_name"]; ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -88,7 +108,16 @@
 </html>
 <?php require_once "setFoot.php"; ?>
 <script>
-    $(document).ready(function(){
-        
+    $(document).ready(function() {
+        $.ajax({
+            type: "POST",
+            url: "getAddress.php",
+            data: {
+
+            },
+            success: function(result) {
+                console.log(result)
+            }
+        });
     })
 </script>
