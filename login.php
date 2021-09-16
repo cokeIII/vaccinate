@@ -3,7 +3,7 @@ require_once "connect.php";
 session_start();
 $username = $_POST["username"];
 $password = $_POST["password"];
-
+header('Content-Type: text/html; charset=UTF-8');
 if ($username == "admin" && $password == "12345678") {
     $_SESSION["username"] = "admin";
     $_SESSION["status"] = "admin";
