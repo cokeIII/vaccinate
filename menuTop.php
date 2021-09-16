@@ -4,7 +4,7 @@
     <button class="navbar-toggler rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-        <li class="nav-item active"><span class="nav-link" href="#!">ยินยอมรับบริการฉีดวัคซีนโควิด 19</span></li>
+        <li class="nav-item active"><span class="nav-link" href="#!">ระบบ สำรวจการฉีดวัคซีนนักเรียนนักศึกษา วิทยาลัยเทคนิคชลบุรี</span></li>
         <?php if (empty($_SESSION["status"])) { ?>
           <li class="nav-item active"><a class="nav-link" href="index.php"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</a></li>
         <?php } else { ?>
