@@ -9,14 +9,14 @@ if ($username == "admin" && $password == "12345678") {
     $_SESSION["status"] = "admin";
     header("location: manageData.php");
 } else {
-    $sql = "select * from students
-     where student_id = '$username ' and birthday = '$password'";
+    $sql = "select s.*,p.* from students s,prefix p
+     where s.student_id = '$username ' and s.birthday = '$password' and p.prefix_id  = s.prefix_id";
     $res = mysqli_query($conn,$sql);
     $row = mysqli_fetch_array($res);
     $rowcount = mysqli_num_rows($res);
     if ($rowcount > 0) {
         $_SESSION["student_id"] = $row["student_id"];
-        $_SESSION["perfix_id"] = $row["perfix_id"];
+        $_SESSION["prefix_name"] = $row["prefix_name"];
         $_SESSION["stu_fname"] = $row["stu_fname"];
         $_SESSION["stu_lname"] = $row["stu_lname"];
         $_SESSION["birthday"] = $row["birthday"];

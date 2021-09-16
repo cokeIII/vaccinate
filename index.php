@@ -25,7 +25,7 @@
                                     <div id="login-column" class="col-md-6">
                                         <div id="login-box" class="col-md-12">
                                             <form id="login-form" class="form" action="login.php" method="post">
-                                                <h3 class="text-center ">เข้าสู่ระบบ</h3>
+                                                <h3 class="text-center ">ระบบ ยินยอมรับบริการฉีดวัคซีนโควิด 19</h3>
                                                 <div class="form-group">
                                                     <label for="username" class="">รหัสนักศึกษา :</label><br>
                                                     <input type="text" name="username" id="username" class="form-control" required>

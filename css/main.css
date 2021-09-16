@@ -14,8 +14,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-.font-sidebar-heading {
-    /* font-size: 16px !important; */
+.bg-head-doc {
+    background-color: rgb(168, 163, 238);
+}
+
+.font-head-doc {
+    color: white;
+    font-size: 24px;
+    margin-top: 20px;
 }
 
 :root {
