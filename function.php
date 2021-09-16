@@ -29,3 +29,13 @@ function calAgeNumber($birthday)
     return  $age;
 }
 
+function calAgeV2($birthday)
+{
+    $birthDate = explode("/", $birthday);
+    $bDate = $birthDate[0]."-".$birthDate[1]."-".($birthDate[2] - 543);
+    $today = date("Y-m-d");
+    // Calculate the time difference between the two dates
+    $diff = date_diff(date_create($bDate), date_create($today));
+    // Get the age in years, months and days
+    return [$diff->format('%y'),$diff->format('%m'),$diff->format('%d')];
+}

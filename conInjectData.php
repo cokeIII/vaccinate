@@ -5,6 +5,7 @@
     <?php
     require_once "setHead.php";
     $student_id = $_SESSION["student_id"];
+    $ageArr = calAgeV2($_SESSION["birthday"]);
     ?>
 </head>
 <style>
@@ -32,14 +33,14 @@
                             <div class="col-md-5">
                                 <div class="text-content"><strong>รหัสประจำตัวนักเรียน/นักศึกษา : </strong> <?php echo $student_id; ?></div>
                                 <div class="text-content"><strong>ชื่อ - สกุล: </strong> <?php echo $_SESSION["prefix_name"] . $_SESSION["stu_fname"] . " " . $_SESSION["stu_lname"]; ?></div>
-                                <div class="text-content"><strong>อายุ : </strong> <?php echo  calAgeNumber($_SESSION["birthday"]) . " ปี"; ?></div>
+                                <div class="text-content"><strong>อายุ : </strong> <?php echo  $ageArr[0]." ปี ".$ageArr[1]." เดือน".$ageArr[2]." วัน"; ?></div>
                                 <div class="text-content"><strong>วัน/เดือน/ปีเกิด : </strong> <?php echo $_SESSION["birthday"]; ?></div>
                             </div>
                         </div>
                         <?php if (calAgeNumber($_SESSION["birthday"]) < 18) { ?>
                             <div class="row justify-content-center mt-2">
                                 <div class="col-md-6 text-content">
-                                    <form action="confirm.php" method="post">
+                                    <form action="confirm.php" method="post" id="confirm">
 
                                         <?php
                                         $sql = "select * from parents pr,data_prefix p where student_id = '$student_id' and pr.parent_th_prefix = p.prefix_code order by relevance";
@@ -50,7 +51,7 @@
                                                 <strong> 1. ข้อมูลผู้ให้คำยินยอม (กรุณาเลือกผู้ให้คำยินยอมกรณีอายุไม่ถึง 18 ปีบริบูรณ์) <span class="text-danger">*</span></strong>
                                                 <?php while ($row = mysqli_fetch_array($res)) { ?>
                                                     <div>
-                                                        <input type="radio" name="parent" class="parent" value="<?php echo $row["parent_id"]; ?>"> <?php echo $row["relevance"]; ?> ชื่อ <?php echo $row["prefix_name"] . $row["parent_th_name"] . " " . $row["parent_th_surname"]; ?>
+                                                        <input type="radio" name="parent" class="parent" value="<?php echo $row["parent_id"]; ?>" required> <?php echo $row["relevance"]; ?> ชื่อ <?php echo $row["prefix_name"] . $row["parent_th_name"] . " " . $row["parent_th_surname"]; ?>
                                                     </div>
                                                 <?php } ?>
 
@@ -246,6 +247,10 @@
                     $("#amphure").html(result)
                 }
             });
+        })
+        $(document).on('submit','#confirm',function(){
+            
+            return false;
         })
         let listCount = 1;
         $(document).on('click', '#addListInject', function() {

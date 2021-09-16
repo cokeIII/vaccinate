@@ -43,7 +43,7 @@ while ($row = mysqli_fetch_array($res)) {
 
     $sqlStd = "replace into students (
         student_id,
-        perfix_id,
+        prefix_id,
         stu_fname,
         stu_lname,
         birthday,
