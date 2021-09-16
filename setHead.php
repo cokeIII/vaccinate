@@ -6,3 +6,5 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link href="fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery.loading-indicator.css">
+<?php session_start();?>

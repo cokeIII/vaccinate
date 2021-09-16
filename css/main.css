@@ -11120,15 +11120,21 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: 0;
 }
 
-@media (min-width: 768px) {
-    #sidebar-wrapper {
-        margin-left: 0;
-    }
-    #page-content-wrapper {
-        min-width: 0;
-        width: 100%;
-    }
-    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
-        margin-left: -20rem;
-    }
+
+/* @media (min-width: 768px) { */
+
+#sidebar-wrapper {
+    margin-left: 0;
 }
+
+#page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: -20rem;
+}
+
+
+/* } */
