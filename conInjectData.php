@@ -33,7 +33,7 @@
                             <div class="col-md-5">
                                 <div class="text-content"><strong>รหัสประจำตัวนักเรียน/นักศึกษา : </strong> <?php echo $student_id; ?></div>
                                 <div class="text-content"><strong>ชื่อ - สกุล: </strong> <?php echo $_SESSION["prefix_name"] . $_SESSION["stu_fname"] . " " . $_SESSION["stu_lname"]; ?></div>
-                                <div class="text-content"><strong>อายุ : </strong> <?php echo  $ageArr[0]." ปี ".$ageArr[1]." เดือน".$ageArr[2]." วัน"; ?></div>
+                                <div class="text-content"><strong>อายุ : </strong> <?php echo  $ageArr[0] . " ปี " . $ageArr[1] . " เดือน" . $ageArr[2] . " วัน"; ?></div>
                                 <div class="text-content"><strong>วัน/เดือน/ปีเกิด : </strong> <?php echo $_SESSION["birthday"]; ?></div>
                             </div>
                         </div>
@@ -241,17 +241,23 @@
                 type: "POST",
                 url: "getAddress.php",
                 data: {
-                    getAumF:$("#province").val()
+                    getAumF: $("#province").val()
                 },
                 success: function(result) {
                     $("#amphure").html(result)
                 }
             });
         })
-        $(document).on('submit','#confirm',function(){
-            
-            return false;
-        })
+        // $(document).on('submit', '#confirm', function() {
+        //     if ($('#inject').is(':checked')) {
+        //         console.log("inject")
+        //     } else if($('#domicileInject').is(':checked')){
+        //         console.log("notInject")
+        //     } else if($('#notInject').is(':checked')) {
+
+        //     }
+        //     return false;
+        // })
         let listCount = 1;
         $(document).on('click', '#addListInject', function() {
             $("#listInject").append(
