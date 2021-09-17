@@ -143,6 +143,17 @@
                                                             <input type="number" name="needle[]" id="needle" class="form-control needle">
                                                         </div>
                                                         <div>
+                                                            ชื่อวัคซีน:
+                                                            <select name="vaccineName[]" id="vaccineName" class="form-control">
+                                                                <option value="">-- กรุณาเลือกวัคซีน --</option>
+                                                                <option value="Pfizer">Pfizer</option>
+                                                                <option value="AstraZeneca">AstraZeneca</option>
+                                                                <option value="Sinovac">Sinovac</option>
+                                                                <option value="Sinopharm">Sinopharm</option>
+                                                            </select>
+                                                            <!-- <input type="text" name="vaccineName[]" id="vaccineName" class="form-control vaccineName"> -->
+                                                        </div>
+                                                        <div>
                                                             Lot No:
                                                             <input type="number" name="lotno[]" id="lotno" class="form-control lotno">
                                                         </div>
@@ -207,6 +218,7 @@
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
+        // $(document)
         $("#amphure").select2({
             width: "100%"
         })
@@ -278,7 +290,10 @@
                     alert("กรุณากรอกชื่อโรงพยาบาล")
                     return false
                 }
-
+                if ($('.vaccineName').val() == "") {
+                    alert("กรุณากรอกชื่อวัคซีน")
+                    return false
+                }
                 $.ajax({
                     type: "POST",
                     url: "insertDataInject.php",
@@ -299,17 +314,17 @@
                     alert("กรุณาเลือกอำเภอ")
                     return false
                 }
-                // $.ajax({
-                //     type: "POST",
-                //     url: "insertDomicileInject.php",
-                //     data: formData,
-                //     success: function(result) {
-                //         console.log(result)
-                //         if (result == "ok") {
-                //             window.location.replace("success.php");
-                //         }
-                //     }
-                // });
+                $.ajax({
+                    type: "POST",
+                    url: "insertDataLand.php",
+                    data: formData,
+                    success: function(result) {
+                        console.log(result)
+                        if (result == "ok") {
+                            window.location.replace("success.php");
+                        }
+                    }
+                });
                 window.location.replace("success.php");
             } else if ($('#covid19').is(':checked')) {
                 if ($('#covid19D').val() == "") {
@@ -329,7 +344,6 @@
                 console.log(days)
 
             } else if ($('#willInject').is(':checked')) {
-                alert("willInject")
                 $.ajax({
                     type: "POST",
                     url: "insertDataWillInject.php",

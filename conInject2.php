@@ -5,15 +5,19 @@
     <?php
     require_once "setHead.php";
     require_once "connect.php";
+    if ($_SESSION["group_age"] == 18) {
+        header("location: conInject3.php");
+    }
     $student_id = $_SESSION["student_id"];
-    $sql = "select sg.*,t.amphure_id,s.*,pr.*,dp.prefix_name as prefix_name_db,p.prefix_name as prefix_name_p
-        from students s,prefix p,parents pr,data_prefix dp,tumbol t,student_group sg
+    $sql = "select e.phone as parentPhone,sg.*,t.amphure_id,s.*,pr.*,dp.prefix_name as prefix_name_db,p.prefix_name as prefix_name_p
+        from students s,prefix p,parents pr,data_prefix dp,tumbol t,student_group sg,enroll e
         where s.student_id = '$student_id' 
         and p.prefix_id = s.prefix_id
         and pr.parent_th_prefix = dp.prefix_code
         and s.parent_id = pr.parent_id
         and s.tumbol_id = t.tumbol_id
         and sg.student_group_id = s.group_id
+        and e.student_id = s.student_id
         ";
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res);
@@ -32,9 +36,8 @@
             <!-- Page content-->
             <div class="container-fluid">
                 <div id="login">
-                    <h3 class="text-center text-white pt-5">Login form</h3>
                     <div class="container">
-                        <div class="card">
+                        <div class="card mt-5">
                             <form method="post" id="conInject2">
                                 <input type="hidden" name="parent_id" value="<?php echo $row["parent_id"] ?>">
                                 <div class="card-body p-3">
@@ -46,7 +49,7 @@
                                     <div class="row mt-1">
                                         <div class="col-md-3">
                                             <label>คำนำหน้าชื่อ</label>
-                                            <input value="<?php echo $row["prefix_name_db"]; ?>" type="text" class="form-control mt-1" readonly required>
+                                            <input value="<?php echo $row["prefix_name_db"]; ?>" name="prefix_name_db" type="text" class="form-control mt-1" readonly required>
                                         </div>
                                         <div class="col-md-3">
                                             <label>ชื่อ</label>
@@ -58,17 +61,20 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>หมายเลขโทรศัพท์ (ผู้ปกครอง)</label>
-                                            <input value="" type="number" name="telPar" id="telPar" class="form-control mt-1" placeholder="" required>
+                                            <input value="<?php echo $row["parentPhone"]; ?>" type="number" name="telPar" id="telPar" class="form-control mt-1" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="row mt-1">
                                         <div class="col-md-6">
+                                            <input type="hidden" name="prefix_name_p" value="<?php echo $row["prefix_name_p"]; ?>">
+                                            <input type="hidden" name="stu_fname" value="<?php echo $row["stu_fname"]; ?>">
+                                            <input type="hidden" name="stu_lname" value="<?php echo $row["stu_lname"]; ?>">
                                             <label>ผู้ปกครองของ</label>
                                             <input value="<?php echo $row["prefix_name_p"] . $row["stu_fname"] . " " . $row["stu_lname"]; ?>" type="text" name="parent_form" id="" class="form-control mt-1" placeholder="" readonly required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>มีความสัมพันธ์เป็น</label>
-                                            <input value="<?php echo $row["relevance"]; ?>" type="text" name="relevance_form" id="" class="form-control mt-1" placeholder="" readonly required>
+                                            <input value="<?php echo $row["relevance"]; ?>" type="text" name="relevance" id="" class="form-control mt-1" placeholder="" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mt-1">
@@ -88,6 +94,7 @@
                                     <div class="row mt-1">
                                         <div class="col-md-4">
                                             <label for="">ตำบล</label>
+                                            <input type="hidden" name="tumbol_name" value="">
                                             <select name="tumbol" id="tumbol" class="form-control" required>
 
                                             </select>
@@ -114,17 +121,18 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label>อายุ</label>
-                                            <input value="<?php echo calAgeNumber($row["birthday"]); ?>" type="text" name="" id="" class="form-control" readonly>
+                                            <input value="<?php echo calAgeNumber($row["birthday"]);
+                                                            ?>" type="text" name="age" id="age" class="form-control" readonly>
                                         </div>
                                         <div class="col-md-3">
                                             <label>วัน/เดือน/ปีเกิด</label>
-                                            <input value="<?php echo $row["birthday"]; ?>" type="text" name="" id="" class="form-control" readonly>
+                                            <input value="<?php echo $row["birthday"]; ?>" type="text" name="birthday" id="birthday" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="row mt-1">
                                         <div class="col-md-6">
                                             <label>เลขประจำตัว 13 หลัก/หมายเลขหนังสือเดินทาง (กรณีชาวต่างประเทศ)</label>
-                                            <input value="<?php echo $row["people_id"]; ?>" type="text" name="" id="" class="form-control" required>
+                                            <input value="<?php echo $row["people_id"]; ?>" type="text" name="people_id" id="people_id" class="form-control" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>สัญชาติ</label>
@@ -153,10 +161,11 @@
                                     </div>
                                     <div class="row justify-content-center text-center mt-3">
                                         <div class="col-md-8">
-                                            <div>ข้าพเจ้า <input type="radio" name="inject" id=""> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
-                                            <div>ข้าพเจ้า <input type="radio" name="inject" id=""> ไม่ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์ สาเหตุ (ถ้ามี) <input type="text" name="noteInject" id=""></div>
+                                            <div>ข้าพเจ้า <input type="radio" name="decision" id="" value="1" required> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
+                                            <div>ข้าพเจ้า <input type="radio" name="decision" id="" value="0" required> ไม่ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์ สาเหตุ (ถ้ามี) <input type="text" name="noteInject" id=""></div>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="signed" name="signed" value="">
                                     <div class="row mt-3">
                                         <div class="d-flex justify-content-center text-center">
                                             <div class="row">
@@ -177,7 +186,7 @@
                                     <div class="row mt-3">
                                         <div class="d-flex justify-content-center text-center">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                                                <button type="submit" class="btn btn-success" id="btnEnroll">บันทึกข้อมูล</button>
                                             </div>
                                         </div>
                                     </div>
@@ -195,6 +204,16 @@
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
+        let signed = false
+        $("#btnEnroll").attr('disabled', true)
+        $(document).on('change', "#signatureparent", function() {
+            console.log(signed)
+            signed = true
+            if (signed) {
+                $("#btnEnroll").attr('disabled', false)
+            }
+            $("#signed").val("image/svg+xml;base64," + $("#signatureparent").jSignature('getData', "image/svg+xml;base64")[1])
+        })
         $("#signatureparent").jSignature({
 
             // line color
@@ -217,7 +236,7 @@
                 $("#btnEnroll").attr('disabled', true)
             }
         })
-        let tumbolData = '<?php echo $row["amphure_id"]; ?>'
+        let tumbolData = '<?php echo $row["tumbol_id"]; ?>'
         console.log(tumbolData)
         $.ajax({
             type: "POST",
@@ -234,14 +253,15 @@
             }
         });
         $(document).on('change', '#tumbol', function() {
+            $("#tum_name").val($('option:selected', this).attr('tum_name'))
             $.ajax({
                 type: "POST",
                 url: "getAddress.php",
                 data: {
-                    getAum: $("#tumbol").val()
+                    getAum: $('option:selected', this).attr('val')
                 },
                 success: function(result) {
-                    // console.log(result)
+                    console.log(result)
                     $("#amphure").html(result)
                     $.ajax({
                         type: "POST",

@@ -96,7 +96,7 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex flex-row-reverse">
-                                    <a href="conInject2.php"><button class="btn btn-primary">ไปยังส่วนที่ 2 </button></a>
+                                    <a href="conInject2.php"><button class="btn btn-primary">ไปยังส่วนถัดไป </button></a>
                                 </div>
                             </div>
                         </div>

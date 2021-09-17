@@ -6,6 +6,7 @@ if (!empty($_POST["parent"])) {
     $parent_id = $_POST["parent"];
 }
 $student_id = $_SESSION["student_id"];
+$amphure_id = $_POST["amphure"];
 $status = $_POST["inject"];
 if ($parent_id == "ผู้ให้คำยินยอม") {
     $parent_id = $student_id . "P";
@@ -23,7 +24,8 @@ $sql = "update students set status = '$status', parent_id = '$parent_id' where s
 $res = mysqli_query($conn, $sql);
 $sqlStatus = "replace into stu_status (student_id,student_status) value('$student_id','$status')";
 $resStatus = mysqli_query($conn,$sqlStatus);
-
+$sqlLand = "replace into student_land (student_id,amphure_id) values ('$student_id','$amphure_id')";
+$resLand = mysqli_query($conn,$sqlLand);
 if ($res && $resStatus) {
     echo "ok";
 }

@@ -15,7 +15,7 @@ if (!empty($_POST["getAumF"])) {
     $res = mysqli_query($conn, $sql);
     $opt = '<option value="">-- กรุณาเลือกตำบล --</option>';
     while ($row = mysqli_fetch_array($res)) {
-        $opt .= '<option value="' . $row["amphure_id"] . '">' . $row["tumbol_name"]."(อ.".$row["amphure_name"].")". '</option>';
+        $opt .= '<option val="'.$row["amphure_id"].'" tum_name="'.$row["tumbol_name"].'" value="' . $row["tumbol_id"] . '">' . $row["tumbol_name"]."(อ.".$row["amphure_name"].")". '</option>';
     }
 } else if (!empty($_POST["getAum"])) {
     $amphure_id = $_POST["getAum"];

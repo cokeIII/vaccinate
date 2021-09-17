@@ -1,7 +1,10 @@
 <?php
 require_once "connect.php";
 session_start();
-$parent_id = $_POST["parent"];
+$parent_id = "";
+if (!empty($_POST["parent"])) {
+    $parent_id = $_POST["parent"];
+}
 $student_id = $_SESSION["student_id"];
 $status = $_POST["inject"];
 if ($parent_id == "ผู้ให้คำยินยอม") {
@@ -17,8 +20,10 @@ if ($parent_id == "ผู้ให้คำยินยอม") {
     mysqli_query($conn, $sqlRe);
 }
 $sql = "update students set status = '$status', parent_id = '$parent_id' where student_id = '$student_id'";
-$res = mysqli_query($conn,$sql);
+$res = mysqli_query($conn, $sql);
+$sqlStatus = "replace into stu_status (student_id,student_status) value('$student_id','$status')";
+$resStatus = mysqli_query($conn, $sqlStatus);
 
-if($res){
+if ($res && $resStatus) {
     echo "ok";
 }
