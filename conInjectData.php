@@ -297,6 +297,18 @@
                     alert("กรุณาเลือกอำเภอ")
                     return false
                 }
+                // $.ajax({
+                //     type: "POST",
+                //     url: "insertDomicileInject.php",
+                //     data: formData,
+                //     success: function(result) {
+                //         console.log(result)
+                //         if (result == "ok") {
+                //             window.location.replace("success.php");
+                //         }
+                //     }
+                // });
+                window.location.replace("success.php");
             } else if ($('#covid19').is(':checked')) {
                 if ($('#covid19D').val() == "") {
                     alert("กรุณาเลือกวันที่ติดเชื้อ")
@@ -315,6 +327,8 @@
                         }
                     }
                 });
+            } else if ($('#noInject').is(':checked')) {
+                window.location.replace("success.php");
             }
 
             if ($('#parentOtherR').is(':checked')) {
