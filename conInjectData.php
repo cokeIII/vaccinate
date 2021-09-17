@@ -257,6 +257,9 @@
                 }
             });
         })
+        $(document).on('change', '#province', function() {
+
+        })
         $(document).on('submit', '#confirm', function() {
             var formData = $(this).serialize();
             if ($('#inject').is(':checked')) {
@@ -315,6 +318,17 @@
                     return false
                 }
 
+                var start = $('#start_date').val();
+                var end = $('#end_date').val();
+
+                // end - start returns difference in milliseconds 
+                var diff = new Date(end - start);
+
+                // get days
+                var days = diff / 1000 / 60 / 60 / 24;
+
+                console.log(days)
+
             } else if ($('#willInject').is(':checked')) {
                 $.ajax({
                     type: "POST",
@@ -328,7 +342,17 @@
                     }
                 });
             } else if ($('#noInject').is(':checked')) {
-                window.location.replace("success.php");
+                $.ajax({
+                    type: "POST",
+                    url: "insertDataNoinject.php",
+                    data: formData,
+                    success: function(result) {
+                        console.log(result)
+                        if (result == "ok") {
+                            window.location.replace("success.php");
+                        }
+                    }
+                });
             }
 
             if ($('#parentOtherR').is(':checked')) {
