@@ -11,25 +11,25 @@ if (!empty($_POST["getAumF"])) {
         $opt .= '<option value="' . $row["amphure_id"] . '">' . $row["amphure_name"] . '</option>';
     }
 } else if (!empty($_POST["getTum"])) {
-    $sql = "select * from tumbol t,amphure a where t.amphure_id = a.amphure_id";
+    $sql = "select * from tumbol t,amphure a,province p where t.amphure_id = a.amphure_id and a.province_id = p.province_id";
     $res = mysqli_query($conn, $sql);
     $opt = '<option value="">-- กรุณาเลือกตำบล --</option>';
     while ($row = mysqli_fetch_array($res)) {
-        $opt .= '<option val="'.$row["amphure_id"].'" tum_name="'.$row["tumbol_name"].'" value="' . $row["tumbol_id"] . '">' . $row["tumbol_name"]."(อ.".$row["amphure_name"].")". '</option>';
+        $opt .= '<option val2="'.$row["province_id"].'" val="'.$row["amphure_id"].'" tum_name="'.$row["tumbol_name"].'" value="' . $row["tumbol_id"] . '">' . $row["tumbol_name"]."(อ.".$row["amphure_name"].")". '</option>';
     }
 } else if (!empty($_POST["getAum"])) {
     $amphure_id = $_POST["getAum"];
     $sql = "select * from amphure where amphure_id = '$amphure_id'";
     $res = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($res)) {
-        $opt .= '<option value="' . $row["province_id"] . '">' . $row["amphure_name"] . '</option>';
+        $opt .= '<option val="'.$row["province_id"].'" value="' . $row["amphure_name"] . '">' . $row["amphure_name"] . '</option>';
     }
 } else if (!empty($_POST["getPro"])) {
     $province_id = $_POST["getPro"];
     $sql = "select * from province where province_id = '$province_id'";
     $res = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($res)) {
-        $opt .= '<option value="' . $row["province_id"] . '">' . $row["province_name"] . '</option>';
+        $opt .= '<option value="' . $row["province_name"]. '">' . $row["province_name"] . '</option>';
     }
 }
 

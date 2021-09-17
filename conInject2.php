@@ -260,6 +260,7 @@
         });
         $(document).on('change', '#tumbol', function() {
             $("#tumbol_name").val($('option:selected', this).attr('tum_name'))
+            let province_id = $('option:selected', this).attr('val2')
             $.ajax({
                 type: "POST",
                 url: "getAddress.php",
@@ -273,7 +274,7 @@
                         type: "POST",
                         url: "getAddress.php",
                         data: {
-                            getPro: $("#amphure").val()
+                            getPro: province_id
                         },
                         success: function(result) {
                             // console.log(result)
