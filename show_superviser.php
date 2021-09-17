@@ -6,7 +6,7 @@
     
 </head>
 <?php
-    // $_SESSION['teacher_id'] = '3240400238082'; //hard code
+    // $_SESSION['teacher_id'] = '1209501099179'; //hard code
     $teacher_id = $_SESSION["teacher_id"];
     $group=get_group_name($teacher_id);//array
     $teacher_name=get_teacher_name($teacher_id);

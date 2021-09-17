@@ -9,9 +9,17 @@ if ($username == "admin" && $password == "12345678") {
     $_SESSION["username"] = "admin";
     $_SESSION["status"] = "admin";
     header("location: manageData.php");
+} else if ($password == "advisor") {
+    $sql = "select * from people where people_id = '$username'";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        $row = mysqli_fetch_array($res);
+        $_SESSION['teacher_id'] = $row["people_id"];
+        header("location: show_superviser.php");
+    } else {
+        header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
+    }
 } else {
-
-
     $sql = "select s.*,p.* from students s,prefix p
      where s.student_id = '$username ' and s.birthday = '$password' and p.prefix_id  = s.prefix_id";
     $res = mysqli_query($conn, $sql);
