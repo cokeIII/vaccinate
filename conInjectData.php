@@ -37,11 +37,11 @@
                                 <div class="text-content"><strong>วัน/เดือน/ปีเกิด : </strong> <?php echo $_SESSION["birthday"]; ?></div>
                             </div>
                         </div>
-                        <?php $topic = 0;
-                        if (calAgeNumber($_SESSION["birthday"]) < 18) { ?>
-                            <div class="row justify-content-center mt-2">
-                                <div class="col-md-6 text-content">
-                                    <form action="confirm.php" method="post" id="confirm">
+                        <form action="confirm.php" method="post" id="confirm">
+                            <?php $topic = 0;
+                            if (calAgeNumber($_SESSION["birthday"]) < 18) { ?>
+                                <div class="row justify-content-center mt-2">
+                                    <div class="col-md-6 text-content">
                                         <?php
                                         $sql = "select * from parents pr,data_prefix p where student_id = '$student_id' and pr.parent_th_prefix = p.prefix_code order by relevance";
                                         $res = mysqli_query($conn, $sql);
@@ -192,10 +192,10 @@
                                             <button type="submit" class="btn btn-success"> <i class="fas fa-clipboard-check"></i> ยืนยัน</button>
                                         </div>
                                     </div>
-                                    </form>
-                                </div>
-                            </div>
 
+                                    </div>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -270,10 +270,10 @@
                     alert("กรุณากรอกฉีดเข็มที่")
                     return false
                 }
-                if ($('.lotno').val() == "") {
-                    alert("กรุณากรอกหมายเลข Lot No")
-                    return false
-                }
+                // if ($('.lotno').val() == "") {
+                //     alert("กรุณากรอกหมายเลข Lot No")
+                //     return false
+                // }
                 if ($('.hospital_name').val() == "") {
                     alert("กรุณากรอกชื่อโรงพยาบาล")
                     return false
@@ -329,6 +329,7 @@
                 console.log(days)
 
             } else if ($('#willInject').is(':checked')) {
+                alert("willInject")
                 $.ajax({
                     type: "POST",
                     url: "insertDataWillInject.php",
