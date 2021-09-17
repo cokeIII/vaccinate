@@ -18,7 +18,7 @@ e.id_card_pic,
 e.phone,
 s.people_id
 from student s
-left join enroll e on e.student_id = s.student_id
+FULL OUTER join enroll e on e.student_id = s.student_id
 where e.status = 'พิมพ์แล้ว' and s.status = 0 and s.group_id != '632090103' and s.group_id !='632090104'
 and s.group_id not LIKE '62202%'
 ";
