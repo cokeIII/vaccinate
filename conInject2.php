@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>หมู่ที่</label>
-                                            <input value="<?php echo $row["moo"]; ?>" type="number" name="moo" id="moo" class="form-control mt-1" placeholder="" required>
+                                            <input value="<?php echo $row["moo"]; ?>" type="number" name="moo" id="moo" class="form-control mt-1" placeholder="" >
                                         </div>
                                         <div class="col-md-4">
                                             <label>ถนน</label>
