@@ -14,7 +14,9 @@ s.home_id,
 s.moo,
 s.street,
 s.tumbol_id,
-e.id_card_pic
+e.id_card_pic,
+e.phone,
+s.people_id
 from student s
 inner join enroll e on e.student_id = s.student_id
 where e.status = 'พิมพ์แล้ว' and s.status = 0 and s.group_id != '632090103' and s.group_id !='632090104'
@@ -40,6 +42,8 @@ while ($row = mysqli_fetch_array($res)) {
     $street = $row["street"];
     $tumbol_id = $row["tumbol_id"];
     $id_card_pic = $row["id_card_pic"];
+    $people_id = $row["people_id"];
+    // $phone = $row["phone"];
 
     $sqlStd = "replace into students (
         student_id,
@@ -56,7 +60,8 @@ while ($row = mysqli_fetch_array($res)) {
         home_id,
         moo,
         street,
-        tumbol_id
+        tumbol_id,
+        people_id
         ) value (
             '$student_id',
             '$perfix_id',
@@ -72,7 +77,8 @@ while ($row = mysqli_fetch_array($res)) {
             '$home_id',
             '$moo',
             '$street',
-            '$tumbol_id'
+            '$tumbol_id',
+            '$people_id'
         )";
 
     $resStd = mysqli_query($conn, $sqlStd);
