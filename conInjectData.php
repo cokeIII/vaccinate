@@ -155,7 +155,7 @@
                                                         </div>
                                                         <div>
                                                             Lot No:
-                                                            <input type="number" name="lotno[]" id="lotno" class="form-control lotno">
+                                                            <input type="text" name="lotno[]" id="lotno" class="form-control lotno">
                                                         </div>
                                                         <div>
                                                             ชื่อโรงพยาบาล:
@@ -420,7 +420,7 @@
                 '</div>'+
                 '<div>' +
                 'lot NO:' +
-                '<input type = "number"' +
+                '<input type = "text"' +
                 'name = "lotno[]"' +
                 'id = "lotno"' +
                 'class = "form-control lotno" >' +
