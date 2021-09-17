@@ -18,7 +18,7 @@ e.id_card_pic,
 e.phone,
 s.people_id
 from student s
-inner join enroll e on e.student_id = s.student_id
+left join enroll e on e.student_id = s.student_id
 where e.status = 'พิมพ์แล้ว' and s.status = 0 and s.group_id != '632090103' and s.group_id !='632090104'
 and s.group_id not LIKE '62202%'
 ";
@@ -44,7 +44,10 @@ while ($row = mysqli_fetch_array($res)) {
     $id_card_pic = $row["id_card_pic"];
     $people_id = $row["people_id"];
     // $phone = $row["phone"];
-
+    // $sqlGetStd = "select cout(student_id) as stdCount from students where student_id = '$student_id'";
+    // $resGetStd = mysqli_query($conn,$sqlStd);
+    // $rowGetStd = mysqli_fetch_array($resGetStd);
+    // if($rowGetStd[""]){
     $sqlStd = "replace into students (
         student_id,
         prefix_id,
@@ -90,5 +93,5 @@ while ($row = mysqli_fetch_array($res)) {
     } else {
         echo $sqlStd;
     }
+    // }
 }
-

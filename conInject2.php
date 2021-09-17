@@ -8,7 +8,14 @@
     if ($_SESSION["group_age"] == 18) {
         header("location: conInject3.php");
     }
-    $student_id = $_SESSION["student_id"];
+    if(!empty($_SESSION["student_id"])){
+        $student_id = $_SESSION["student_id"];
+    } else if(!empty($_GET["student_id"])){
+        $student_id = $_GET["student_id"];
+    } else {
+        header("location: logout.php");
+    }
+    
     $sql = "select e.phone as parentPhone,sg.*,t.amphure_id,s.*,pr.*,dp.prefix_name as prefix_name_db,p.prefix_name as prefix_name_p
         from students s,prefix p,parents pr,data_prefix dp,tumbol t,student_group sg,enroll e
         where s.student_id = '$student_id' 

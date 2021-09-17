@@ -13,7 +13,7 @@
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
-            <?php require_once "menuTop.php"; ?>
+            <?php require_once "menuTop.php"; $student_id = $_SESSION["student_id"]?>
             <!-- Page content-->
             <div class="container-fluid">
                 <div id="login">
@@ -96,7 +96,7 @@
                                 </div>
                                 <hr>
                                 <div class="d-flex flex-row-reverse">
-                                    <a href="conInject2.php"><button class="btn btn-primary">ไปยังส่วนถัดไป </button></a>
+                                    <a href="conInject2.php?student_id=<?php echo $student_id;?>"><button class="btn btn-primary">ไปยังส่วนถัดไป </button></a>
                                 </div>
                             </div>
                         </div>
