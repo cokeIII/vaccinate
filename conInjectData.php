@@ -103,7 +103,7 @@
                                                     </div>
                                                     <div>
                                                         <input type="radio" name="inject" id="domicileInject" value="ประสงค์ฉีดที่ภูมิลำเนา" class="no-inject" required>
-                                                        ประสงค์ฉีดที่ภูมิลำเนา
+                                                        ประสงค์ฉีดที่ภูมิลำเนา (นอกจังหวัดชลบุรี)
                                                     </div>
                                                     <div>
                                                         <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
