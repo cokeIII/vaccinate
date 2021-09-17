@@ -16,7 +16,7 @@ street,
 tumbol_id,
 people_id
 from student 
-where stgroup_id != '632090103' and group_id !='632090104'
+where status = 0 and group_id != '632090103' and group_id !='632090104'
 and group_id not LIKE '62202%'
 ";
 $resCount = mysqli_query($conn, $sql);
