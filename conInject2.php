@@ -101,7 +101,7 @@
                                     <div class="row mt-1">
                                         <div class="col-md-4">
                                             <label for="">ตำบล</label>
-                                            <input type="hidden" name="tumbol_name" value="">
+                                            <input type="hidden" name="tumbol_name" value="" id="tumbol_name">
                                             <select name="tumbol" id="tumbol" class="form-control" required>
 
                                             </select>
@@ -244,7 +244,6 @@
             }
         })
         let tumbolData = '<?php echo $row["tumbol_id"]; ?>'
-        console.log(tumbolData)
         $.ajax({
             type: "POST",
             url: "getAddress.php",
@@ -260,7 +259,7 @@
             }
         });
         $(document).on('change', '#tumbol', function() {
-            $("#tum_name").val($('option:selected', this).attr('tum_name'))
+            $("#tumbol_name").val($('option:selected', this).attr('tum_name'))
             $.ajax({
                 type: "POST",
                 url: "getAddress.php",
