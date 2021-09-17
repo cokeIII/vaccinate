@@ -27,7 +27,7 @@
                                             <form id="login-form" class="form" action="login.php" method="post">
                                                 <h3 class="text-center ">ระบบ สำรวจการฉีดวัคซีนนักเรียนนักศึกษา วิทยาลัยเทคนิคชลบุรี</h3>
                                                 <div class="form-group">
-                                                    <label for="username" class="">รหัสนักศึกษา :</label><br>
+                                                    <label for="username" class="">ชื่อผู้ใช้งาน :</label><br>
                                                     <input type="text" name="username" id="username" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
@@ -40,8 +40,10 @@
                                             </form>
                                             <div class="note mt-3">
                                                 <p>หมายเหตุ:</p>
-                                                <p> - เข้าสู่ระบบโดยใช้ ชื่อผู้ใช้งานคือ รหัสประจำตัวนักเรียน นักศึกษา
-                                                <div>รหัสผ่านคือ วัน/เดือน/ปีเกิด เช่น 30/12/2540</div>
+                                                <p> - <strong>นักเรียน/นักศึกษา</strong> เข้าสู่ระบบโดยใช้ ชื่อผู้ใช้งานคือ รหัสประจำตัวนักเรียน นักศึกษา
+                                                <div>รหัสผ่านคือ วัน/เดือน/ปีเกิด เช่น 30/12/2540</div></p>
+                                                <p> - <strong>ครูที่ปรึกษา</strong> เข้าสู่ระบบโดยใช้ ชื่อผู้ใช้งานคือ รหัสประจำตัวประชาชน
+                                                <div>รหัสผ่านอยู่ในกลุ่มไลน์ CTC-COVID-19</div></p>
                                             </div>
                                         </div>
                                     </div>
