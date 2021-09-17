@@ -174,7 +174,6 @@
                                                     เลือกจังหวัดและอำเภอที่ต้องการฉีด
                                                     <?php $sqlOther = "select * from province";
                                                     $resOther = mysqli_query($conn, $sqlOther);
-
                                                     ?>
                                                     <hr>
                                                     <div class="row">
@@ -409,6 +408,16 @@
                 'id = "needle"' +
                 'class = "form-control needle" >' +
                 '</div>' +
+                '<div>'+
+                'ชื่อวัคซีน:'+
+                '<select name="vaccineName[]" id="vaccineName" class="form-control">'+
+                    '<option value="">-- กรุณาเลือกวัคซีน --</option>'+
+                    '<option value="Pfizer">Pfizer</option>'+
+                    '<option value="AstraZeneca">AstraZeneca</option>'+
+                    '<option value="Sinovac">Sinovac</option>'+
+                    '<option value="Sinopharm">Sinopharm</option>'+
+                '</select>'+
+                '</div>'+
                 '<div>' +
                 'lot NO:' +
                 '<input type = "number"' +
