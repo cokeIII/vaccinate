@@ -9,6 +9,7 @@
 <link href="fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="css/jquery.loading-indicator.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery.signature.css">
 <?php
 session_start();
 require_once "function.php";
