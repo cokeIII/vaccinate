@@ -123,7 +123,7 @@
                 success: function(result) {
                     // console.log(result)
                     if (result == "ok") {
-                        // window.location.replace("success.php");
+                        window.location.replace("success.php");
                     }
                 }
             });
