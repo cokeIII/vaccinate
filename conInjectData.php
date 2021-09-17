@@ -109,10 +109,10 @@
                                                         <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
                                                         ไม่ประสงค์ฉีด
                                                     </div>
-                                                    <div>
+                                                    <!-- <div>
                                                         <input type="radio" name="inject" id="covid19" value="ได้รับเชื้อไวรัสโควิด 19" class="no-inject" required>
                                                         เคยติดเชื้อไวรัสโคโรนา 2019
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
