@@ -2,25 +2,22 @@
 require_once "connect.php";
 require_once "function.php";
 $sql = "select 
-s.student_id,
-s.perfix_id,
-s.stu_fname,
-s.stu_lname,
-s.birthday,
-s.gender_id,
-s.major_id,
-s.group_id,
-s.home_id,
-s.moo,
-s.street,
-s.tumbol_id,
-e.id_card_pic,
-e.phone,
-s.people_id
-from student s
-FULL OUTER join enroll e on e.student_id = s.student_id
-where e.status = 'พิมพ์แล้ว' and s.status = 0 and s.group_id != '632090103' and s.group_id !='632090104'
-and s.group_id not LIKE '62202%'
+student_id,
+perfix_id,
+stu_fname,
+stu_lname,
+birthday,
+gender_id,
+major_id,
+group_id,
+home_id,
+moo,
+street,
+tumbol_id,
+people_id
+from student 
+where group_id != '632090103' and group_id !='632090104'
+and group_id not LIKE '62202%'
 ";
 $resCount = mysqli_query($conn, $sql);
 $stdCount = mysqli_num_rows($resCount);
