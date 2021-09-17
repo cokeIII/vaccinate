@@ -42,7 +42,6 @@
                             <div class="row justify-content-center mt-2">
                                 <div class="col-md-6 text-content">
                                     <form action="confirm.php" method="post" id="confirm">
-
                                         <?php
                                         $sql = "select * from parents pr,data_prefix p where student_id = '$student_id' and pr.parent_th_prefix = p.prefix_code order by relevance";
                                         $res = mysqli_query($conn, $sql);

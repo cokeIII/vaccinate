@@ -36,6 +36,7 @@
                     <div class="container">
                         <div class="card">
                             <form method="post" id="conInject2">
+                                <input type="hidden" name="parent_id" value="<?php echo $row["parent_id"] ?>">
                                 <div class="card-body p-3">
                                     <div class="row  mt-3">
                                         <div class="col-md-8 bg-head-doc rounded h5"> ส่วนที่ 2 : เอกสารแสดงความประสงค์ของผู้ปกครองให้บุตรหลานฉีดวัคซีนไฟเซอร์</div>
@@ -73,7 +74,7 @@
                                     <div class="row mt-1">
                                         <div class="col-md-4">
                                             <label>ที่อยู่</label>
-                                            <input value="<?php echo $row["home_id"]; ?>" type="text" name="address" id="address" class="form-control mt-1" placeholder="" required>
+                                            <input value="<?php echo $row["home_id"]; ?>" type="text" name="home_id" id="address" class="form-control mt-1" placeholder="" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>หมู่ที่</label>
@@ -81,7 +82,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>ถนน</label>
-                                            <input value="<?php echo $row["street"]; ?>" type="text" name="road" id="road" class="form-control mt-1" placeholder="" required>
+                                            <input value="<?php echo $row["street"]; ?>" type="text" name="street" id="street" class="form-control mt-1" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="row mt-1">
@@ -257,7 +258,17 @@
             });
         })
         $(document).on('submit', '#conInject2', function() {
-            window.location.replace("conInject3.php");
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "saveConInject2.php",
+                data: formData,
+                success: function(result) {
+                    if (result == "ok") {
+                        window.location.replace("conInject3.php");
+                    }
+                }
+            });
             return false
         })
     })
