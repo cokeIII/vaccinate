@@ -5,10 +5,11 @@ $parent_id = "";
 if (!empty($_POST["parent"])) {
     $parent_id = $_POST["parent"];
 }
+
+$student_id = $_SESSION["student_id"];
 if (empty($student_id)) {
     header("location: errPage.php?textErr=เกิดข้อผิดพลาดในการบันทึก กรุณาติดต่อเจ้าหน้าที่ 0918325709");
 }
-$student_id = $_SESSION["student_id"];
 $status = $_POST["inject"];
 if ($parent_id == "ผู้ให้คำยินยอม") {
     $parent_id = $student_id . "P";
