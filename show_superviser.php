@@ -26,6 +26,7 @@
                 ?>
                     <label for="">เลือกกลุ่มการเรียน</label>
                     <select name="group_id" id="">
+                        <option value="">--เลือกกลุ่มการเรียน--</option>
                         <?php
                         foreach($group as $k1 => $value1){
                             echo "<option value='$value1'>$value1</option>";
@@ -52,7 +53,7 @@
                     // echo $sql;
                     $res=mysqli_query($conn,$sql);
 
-                }
+                
                 ?>
                     <div class="text-center">
                         <h5>ชื่อกลุ่ม <?php echo $group_name ?> ชื่อครูที่ปรึกษา <?php echo $teacher_name?></h5>
@@ -81,6 +82,7 @@
                             </tr>
                         <?php
                         }
+                    }
                         ?>
                     </table>
 
