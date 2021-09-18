@@ -28,7 +28,7 @@
                     <div class="container">
                         <div class="card mt-5">
                             <div class="card-body">
-                                <h5>รายการที่บันทึกไว้</h5>
+                                <h5>รายการที่บันทึกไว้ (ตรวจสอบข้อมูลว่าถูกต้องหรือไม่ ถ้าไม่ถูกสามารถกดยกเลิกและบันทึกลงใหม่ได้)</h5>
                                 <hr>
                                 <!-- justify-content-center -->
                                 <div class="row ">

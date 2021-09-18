@@ -5,7 +5,7 @@
     <?php
     require_once "setHead.php";
     require_once "connect.php";
-    if ($_SESSION["group_age"] == 18) {
+    if (calAgeV2($_SESSION["birthday"])[0] >= 18) {
         header("location: conInject3.php");
     }
     if(!empty($_SESSION["student_id"])){

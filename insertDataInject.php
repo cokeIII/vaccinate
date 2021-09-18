@@ -42,10 +42,10 @@ values($student_id,'$inject_dateData','$needleData','$lotnoData','$hospital_name
         $resUp = mysqli_query($conn, $sqlUp);
         $sqlStatus = "replace into stu_status (student_id,student_status) value('$student_id','$status')";
         $resStatus = mysqli_query($conn, $sqlStatus);
-        if ($res && $resUp && $resStatus) {
+        if (mysqli_affected_rows($conn)) {
             $re = "ok";
         } else {
-            $re = $sql;
+            $re = "";
         }
     }
 }
