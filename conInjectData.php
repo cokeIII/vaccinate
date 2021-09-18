@@ -39,7 +39,7 @@
                         </div>
                         <form action="confirm.php" method="post" id="confirm">
                             <?php $topic = 0;
-                            if (calAgeNumber($_SESSION["birthday"]) < 18) { ?>
+                            if ($ageArr[0] < 18) { ?>
                                 <div class="row justify-content-center mt-2">
                                     <div class="col-md-6 text-content">
                                         <?php
