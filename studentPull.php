@@ -18,7 +18,6 @@ people_id
 from student 
 where status = 0 and group_id != '632090103' and group_id !='632090104'
 and group_id not LIKE '62202%' and student_id = '64201050006'
- 
 ";
 $resCount = mysqli_query($conn, $sql);
 $stdCount = mysqli_num_rows($resCount);
