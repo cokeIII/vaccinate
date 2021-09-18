@@ -128,7 +128,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label>อายุ</label>
-                                            <input value="<?php echo calAgeNumber($row["birthday"]);
+                                            <input value="<?php echo calAgeV2($row["birthday"])[0];
                                                             ?>" type="text" name="age" id="age" class="form-control" readonly>
                                         </div>
                                         <div class="col-md-3">
