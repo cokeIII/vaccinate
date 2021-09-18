@@ -141,6 +141,7 @@ if (isset($_POST['level'])){
                                 <th class="text-center">ฉีด</th>
                                 <th class="text-center">ไม่ฉีด</th>
                                 <th class="text-center">ฉีดแล้ว</th>
+                                <th class="text-center">ฉีดภูมิลำเนา</th>
                                 <th class="text-center"> % </th>
                             </tr>
                         </thead>
@@ -159,6 +160,7 @@ if (isset($_POST['level'])){
                                 <td class="text-center"><?php echo $cok[]=status_ok($level,$row['student_group_id']) ?></td>
                                 <td class="text-center"><?php echo $cno[]=status_no($level,$row['student_group_id']) ?></td>
                                 <td class="text-center"><?php echo $cready[]=status_ready($level,$row['student_group_id']) ?></td>
+                                <td class="text-center"><?php echo $clocation[]=status_location($level,$row['student_group_id']) ?></td>
                                 <?php
                                 if(count_sum($level,$row['student_group_id'])==0){
                                     $sum=1;
@@ -183,6 +185,7 @@ if (isset($_POST['level'])){
                                     <td class="text-center"><?php echo Array_sum($cok)?></td>
                                     <td class="text-center"><?php echo Array_sum($cno)?></td>
                                     <td class="text-center"><?php echo Array_sum($cready)?></td>
+                                    <td class="text-center"><?php echo Array_sum($clocation)?></td>
                                     <?php
                                         $sum_percent= Array_sum($csent)/Array_sum($csum)*100;
                                     ?>
@@ -275,6 +278,20 @@ function status_ready($level,$gid){
     where student.`group_id` = '$gid' 
     and student.`group_id` like '$id'
     and `student_status`='ฉีดแล้ว' ";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+function status_location($level,$gid){
+    global $conn;
+    $id=$level."%";
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    INNER JOIN student on student.student_id=`stu_status`.student_id 
+    where student.`group_id` = '$gid' 
+    and student.`group_id` like '$id'
+    and `student_status`='ประสงค์ฉีดที่ภูมิลำเนา' ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($res);
