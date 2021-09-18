@@ -8,13 +8,13 @@
         <?php if (empty($_SESSION["status"])) { ?>
           <li class="nav-item active"><a class="nav-link" href="index.php"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</a></li>
         <?php } else { ?>
-          <li class="nav-item active"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a></li>
-          <?php if ($_SESSION["status"] == "admin") { ?>
-            <li class="nav-item active"><a class="nav-link" href="manageData.php"><i class="fas fa-tasks"></i> จัดการข้อมูล</a></li>
-          <?php } ?>
           <?php if ($_SESSION["status"] == "officer" || $_SESSION["status"] == "teacher") { ?>
             <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-file"></i> รายงานสรุป</a></li>
           <?php } ?>
+          <?php if ($_SESSION["status"] == "admin") { ?>
+            <li class="nav-item active"><a class="nav-link" href="manageData.php"><i class="fas fa-tasks"></i> จัดการข้อมูล</a></li>
+          <?php } ?>
+          <li class="nav-item active"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a></li>
         <?php } ?>
 
         <!-- <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
