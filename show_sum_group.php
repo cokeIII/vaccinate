@@ -19,6 +19,8 @@ if (isset($_POST['level'])){
     $level=$_POST['level'];
     $_SESSION['level']=$level;
 }
+date_default_timezone_set("Asia/Bangkok");
+$student_all=count_all_student();
 ?>
 <body>
     <div id="page-content-wrapper">
@@ -26,8 +28,42 @@ if (isset($_POST['level'])){
         <?php require_once "menuTop.php"; ?>
         <!-- Page content-->
         <div class="container-fluid">
+            <div class="row justify-content-center" style="margin:auto">
+                <div class="card bg-primary" style="width:200px">
+                    <div class="card-header text-white text-center">นักเรียนทั้งหมด</div>
+                    <div class="card-body text-white text-center"><?php echo $student_all?></div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="card bg-warning" style="width:230px">
+                    <div class="card-header text-white text-center">จำนวนการส่งข้อมูล</div>
+                    <div class="card-body text-white text-center"><?php echo $s2=get_all_sent()?></div>
+                </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="card bg-info" style="width:150px">
+                        <div class="card-header text-white text-center">ประสงค์ฉีด</div>
+                        <div class="card-body text-white text-center"><?php echo get_all_ok()?></div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="card bg-info" style="width:150px">
+                        <div class="card-header text-white text-center">ไม่ประสงค์ฉีด</div>
+                        <div class="card-body text-white text-center"><?php echo get_all_no()?></div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="card bg-info" style="width:150px">
+                        <div class="card-header text-white text-center">ฉีดแล้ว</div>
+                        <div class="card-body text-white text-center"><?php echo get_all_ready()?></div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="card bg-info" style="width:150px">
+                        <div class="card-header text-white text-center">ฉีดภูมิลำเนา</div>
+                        <div class="card-body text-white text-center"><?php echo get_all_location()?></div>
+                    </div>
+                </div>
+                <br>
+
             <div class="text-center">
-                <h3>รายงานสรุปตามกลุ่มการเรียน</h3>
+                <h3>รายงานสรุปตามกลุ่มการเรียน </h3>
+                <h4>วันที่ <?php echo chDay(date("Y-m-d"));?> &nbsp; เวลา <?php echo date("H:i")?> น.</h4>
                 <div class="row " >
                     <div class="col-md-3">
                         <label style="display:block; text-align: right;">เลือกระดับชั้น:</label>
@@ -128,9 +164,6 @@ if (isset($_POST['level'])){
                     <br>
                     <table class="table table-bordered table-striped table-responsive-lg" id='tb'>
                         <thead>
-                            <!-- <tr>
-                                <th colspan=6>ระดับ <?php echo $level ?></th>
-                            </tr> -->
                             <tr>
                                 <th>ที่</th>
                                 <th>รหัสกลุ่ม</th>
@@ -196,6 +229,21 @@ if (isset($_POST['level'])){
                             }
                             ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>ที่</th>
+                                <th>รหัสกลุ่ม</th>
+                                <th>ชื่อกลุ่ม</th>
+                                <th>ชื่อครูที่ปรึกษา</th>
+                                <th class="text-center">นักเรียนทั้งหมด</th>
+                                <th class="text-center">บันทึกข้อมูล</th>
+                                <th class="text-center">ฉีด</th>
+                                <th class="text-center">ไม่ฉีด</th>
+                                <th class="text-center">ฉีดแล้ว</th>
+                                <th class="text-center">ฉีดภูมิลำเนา</th>
+                                <th class="text-center"> % </th>
+                            </tr>
+                        </tfoot>
                     </table> 
                     <?php
                 }
@@ -215,6 +263,21 @@ function get_teacher_name($id){
     $res=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($res);
     return $row['name'];
+}
+
+// นักเรียนทั้งหมดไม่รวมทวิศึกษา
+function count_all_student(){
+    global $conn;
+    $id=$level."%";
+    $sql="SELECT count(*) as c FROM `student` WHERE STATUS='0'
+    and group_id !='632090103'
+    and group_id !='632090104'
+    and group_id not LIKE '62202%'
+    and group_id not LIKE '6122%'";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
 }
 
 function count_sum($level,$gid){
@@ -297,3 +360,76 @@ function status_location($level,$gid){
     $row=mysqli_fetch_assoc($res);
     return $row['c'];
 }
+
+//แปลง 2011-03-08 to 8 มีนาคม 2554
+function chDay($s){
+	$d=explode("-",$s);
+	//print_r($d);
+	$arr_month=array('มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
+                     'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');
+	$y=$d[0]+543;
+	//$da=ins0($d[0]);
+    return del0($d[2])." ".$arr_month[$d[1]-1]." ".$y;
+}
+
+//ตัดเลข 0 ถ้าไม่ถึง 10 //=== 08 >> 8
+function del0($s){
+    if ($s<10){
+        $r=substr($s,1);
+    }else{
+        $r=$s;
+    }
+    return $r;
+}
+
+//ส่งทั้งหมด  
+function get_all_sent(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM stu_status WHERE student_id !=''";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+function get_all_ok(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    where`student_status`='ประสงค์จะฉีด' ";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+function get_all_no(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    where`student_status`='ไม่ประสงค์ฉีด' ";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+function get_all_location(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    where`student_status`='ประสงค์ฉีดที่ภูมิลำเนา' ";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+function get_all_ready(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    where`student_status`='ฉีดแล้ว'";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+
+
