@@ -13,7 +13,7 @@
             <li class="nav-item active"><a class="nav-link" href="manageData.php"><i class="fas fa-tasks"></i> จัดการข้อมูล</a></li>
           <?php } ?>
           <?php if ($_SESSION["status"] == "officer" || $_SESSION["status"] == "teacher") { ?>
-            <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><<i class="fas fa-file"></i> รายงานสรุป</a></li>
+            <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-file"></i> รายงานสรุป</a></li>
           <?php } ?>
         <?php } ?>
 
