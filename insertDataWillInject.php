@@ -5,6 +5,9 @@ $parent_id = "";
 if (!empty($_POST["parent"])) {
     $parent_id = $_POST["parent"];
 }
+if (empty($student_id)) {
+    header("location: errPage.php?textErr=เกิดข้อผิดพลาดในการบันทึก กรุณาติดต่อเจ้าหน้าที่ 0918325709");
+}
 $student_id = $_SESSION["student_id"];
 $status = $_POST["inject"];
 if ($parent_id == "ผู้ให้คำยินยอม") {
@@ -21,7 +24,7 @@ if ($parent_id == "ผู้ให้คำยินยอม") {
 }
 $sql = "update students set status = '$status', parent_id = '$parent_id' where student_id = '$student_id'";
 $res = mysqli_query($conn, $sql);
-$sqlStatus = "replace into stu_status (student_id,student_status) value('$student_id','$status')";
+$sqlStatus = "insert into stu_status (student_id,student_status) value('$student_id','$status')";
 $resStatus = mysqli_query($conn, $sqlStatus);
 if (mysqli_affected_rows($conn)) {
     $re = "ok";
