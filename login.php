@@ -20,6 +20,16 @@ if ($username == "admin" && $password == "12345678") {
     } else {
         header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
     }
+} else if ($password == "officers") {
+    $sql = "select * from people where people_id = '$username'";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        $row = mysqli_fetch_array($res);
+        $_SESSION['officer_id'] = $row["people_id"];
+        header("location: listPrint.php");
+    } else {
+        header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
+    }
 } else {
     $sql = "select s.*,p.* from students s,prefix p
      where s.student_id = '$username ' and s.birthday = '$password' and p.prefix_id  = s.prefix_id";

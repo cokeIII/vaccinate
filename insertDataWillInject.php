@@ -22,8 +22,10 @@ if ($parent_id == "ผู้ให้คำยินยอม") {
 $sql = "update students set status = '$status', parent_id = '$parent_id' where student_id = '$student_id'";
 $res = mysqli_query($conn, $sql);
 $sqlStatus = "replace into stu_status (student_id,student_status) value('$student_id','$status')";
-$resStatus = mysqli_query($conn,$sqlStatus);
-
-if ($res && $resStatus) {
-    echo "ok";
+$resStatus = mysqli_query($conn, $sqlStatus);
+if (mysqli_affected_rows($conn)) {
+    $re = "ok";
+} else {
+    $re = "";
 }
+echo $re;

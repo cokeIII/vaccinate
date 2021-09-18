@@ -20,8 +20,10 @@ for ($i = 0; $i < 9; $i++) {
 (student_id,topic_id,ass_result) 
 value('$student_id','$topicC','$topicData')";
     $res = mysqli_query($conn, $sql);
-    if ($res) {
-        $check =  "ok";
+    if (mysqli_affected_rows($conn)) {
+        $check = "ok";
+    } else {
+        $check = "";
     }
 }
 echo $check;

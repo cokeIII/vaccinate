@@ -1,6 +1,7 @@
 <?php
 require_once "connect.php";
 session_start();
+$re = "";
 $student_id = $_SESSION["student_id"];
 $prefix_name_p = $_POST["prefix_name_p"];
 $stu_fname = $_POST["stu_fname"];
@@ -100,11 +101,12 @@ $sqlSave = "insert into doc2 (
     )
 ";
 $resSave = mysqli_query($conn, $sqlSave);
-if($resSave){
-    echo "ok";
+if (mysqli_affected_rows($conn)) {
+    $re = "ok";
 } else {
-    echo $sqlSave;
+    $re = "";
 }
+echo $re;
 //////////////////////////////////////////////
 $sql = "update parents set phone = '$telPar' where parent_id = '$parent_id'";
 $res = mysqli_query($conn, $sql);
