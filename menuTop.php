@@ -12,6 +12,9 @@
           <?php if ($_SESSION["status"] == "admin") { ?>
             <li class="nav-item active"><a class="nav-link" href="manageData.php"><i class="fas fa-tasks"></i> จัดการข้อมูล</a></li>
           <?php } ?>
+          <?php if ($_SESSION["status"] == "officer") { ?>
+            <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-tasks"></i> จัดการข้อมูล</a></li>
+          <?php } ?>
         <?php } ?>
 
         <!-- <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
