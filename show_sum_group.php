@@ -36,7 +36,13 @@ $student_all=count_all_student();
                 &nbsp;&nbsp;&nbsp;
                 <div class="card bg-warning" style="width:230px">
                     <div class="card-header text-white text-center">จำนวนการส่งข้อมูล</div>
-                    <div class="card-body text-white text-center"><?php echo $s2=get_all_sent()?></div>
+                    <div class="card-body text-white text-center"><?php echo $s2=get_all_sent()?>
+                        (
+                            <?php  
+                            echo number_format($s2/$student_all*100,2) ;
+                            ?> % 
+                        )
+                    </div>
                 </div>
                     &nbsp;&nbsp;&nbsp;
                     <div class="card bg-info" style="width:150px">
@@ -100,7 +106,7 @@ $student_all=count_all_student();
                                             <option value="612" <?php echo $a6?>>ปวช.ตกค้าง</option>
                                             <option value="643" <?php echo $a4?>>ปวส.1</option>
                                             <option value="633" <?php echo $a5?>>ปวส.2</option>
-                                            <option value="623" <?php echo $a6?>>ปวส.3 และตกค้าง</option>
+                                            <option value="623" <?php echo $a7?>>ปวส.3 และตกค้าง</option>
 
                                         </select>
                                     </div>
@@ -125,9 +131,11 @@ $student_all=count_all_student();
                     if ($level=='612'){
                         $sql="SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
                             FROM `student_group` stdg
-                            INNER JOIN std_group sg on sg.group_id=stdg.`student_group_id`
+                            INNER JOIN std_group2 sg on sg.group_id=stdg.`student_group_id`
                             where (substr(stdg.`student_group_id`,1,3) = '612'
-                            or substr(stdg.`student_group_id`,1,3) = '602')
+                            or substr(stdg.`student_group_id`,1,3) = '602'
+                            or substr(stdg.`student_group_id`,1,3) = '592'
+                            )
                             and stdg.`student_group_id` !='632090103' and stdg.`student_group_id` !='632090104'
                             and stdg.`student_group_id` not LIKE '62202%'
                             and stdg.`student_group_id` not LIKE '6122%'
@@ -137,7 +145,7 @@ $student_all=count_all_student();
                     }else if($level=='623'){
                         $sql="SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
                             FROM `student_group` stdg
-                            INNER JOIN std_group sg on sg.group_id=stdg.`student_group_id`
+                            INNER JOIN std_group2 sg on sg.group_id=stdg.`student_group_id`
                             where (substr(stdg.`student_group_id`,1,3) = '623'
                             or substr(stdg.`student_group_id`,1,3) = '613'
                             or substr(stdg.`student_group_id`,1,3) = '603')
@@ -149,7 +157,7 @@ $student_all=count_all_student();
                     else{
                         $sql="SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
                             FROM `student_group` stdg
-                            INNER JOIN std_group sg on sg.group_id=stdg.`student_group_id`
+                            INNER JOIN std_group2 sg on sg.group_id=stdg.`student_group_id`
                             where substr(stdg.`student_group_id`,1,3) = '$level'
                             and stdg.`student_group_id` !='632090103' and stdg.`student_group_id` !='632090104'
                             and stdg.`student_group_id` not LIKE '62202%'
@@ -286,7 +294,9 @@ function count_sum($level,$gid){
     $sql="SELECT count(*) as c FROM `student` 
     INNER JOIN std_group on student.group_id=std_group.group_id
     WHERE student.`group_id` = '$gid'
-    and student.`status`='0' and std_group.`group_id` like '$id' ";
+    and student.`status`='0' 
+    -- and std_group.`group_id` like '$id' 
+    ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($res);
@@ -298,7 +308,9 @@ function status_sent($level,$gid){
     $id=$level."%";
     $sql="SELECT count(*) as c FROM `stu_status`
     INNER JOIN student on student.student_id=`stu_status`.student_id
-    where  student.`group_id` = '$gid' and student.`group_id` like '$id' ";
+    where  student.`group_id` = '$gid' 
+    -- and student.`group_id` like '$id' 
+    ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($res);
@@ -311,7 +323,7 @@ function status_ok($level,$gid){
     $sql="SELECT count(*) as c FROM `stu_status` 
     INNER JOIN student on student.student_id=`stu_status`.student_id 
     where student.`group_id` = '$gid' 
-    and student.`group_id` like '$id'
+    -- and student.`group_id` like '$id'
     and `student_status`='ประสงค์จะฉีด' ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
@@ -325,7 +337,7 @@ function status_no($level,$gid){
     $sql="SELECT count(*) as c FROM `stu_status` 
     INNER JOIN student on student.student_id=`stu_status`.student_id 
     where student.`group_id` = '$gid' 
-    and student.`group_id` like '$id'
+    -- and student.`group_id` like '$id'
     and `student_status`='ไม่ประสงค์ฉีด' ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
@@ -339,7 +351,7 @@ function status_ready($level,$gid){
     $sql="SELECT count(*) as c FROM `stu_status` 
     INNER JOIN student on student.student_id=`stu_status`.student_id 
     where student.`group_id` = '$gid' 
-    and student.`group_id` like '$id'
+    -- and student.`group_id` like '$id'
     and `student_status`='ฉีดแล้ว' ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
@@ -353,7 +365,7 @@ function status_location($level,$gid){
     $sql="SELECT count(*) as c FROM `stu_status` 
     INNER JOIN student on student.student_id=`stu_status`.student_id 
     where student.`group_id` = '$gid' 
-    and student.`group_id` like '$id'
+    -- and student.`group_id` like '$id'
     and `student_status`='ประสงค์ฉีดที่ภูมิลำเนา' ";
     // echo $sql;
     $res=mysqli_query($conn,$sql);

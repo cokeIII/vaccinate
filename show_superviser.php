@@ -54,7 +54,7 @@
                     $res=mysqli_query($conn,$sql);
 
                 
-                ?>
+                    ?>
                     <div class="text-center">
                         <h5>ชื่อกลุ่ม <?php echo $group_name ?> ชื่อครูที่ปรึกษา <?php echo $teacher_name?></h5>
                     </div>
@@ -64,7 +64,8 @@
                             <th>รหัสนักเรียน</th>
                             <th>ชื่อ-สกุล</th>
                             <th>เวลาส่ง</th>
-                            <th>หมายเลขโทรศัพท์</th>
+                            <th>โทรศัพท์ผู้ปกครอง</th>
+                            <th>โทรศัพท์นักเรียน</th>
                             <th>รายการ</th>
                         </tr>
                         <?php
@@ -78,6 +79,7 @@
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['time_stamp'] ?></td>
                                 <td><?php echo $row['par_tell'] ?></td>
+                                <td><?php echo $row['tele_number'] ?></td>
                                 <td><?php echo $row['student_status'] ?></td>
                             </tr>
                         <?php
