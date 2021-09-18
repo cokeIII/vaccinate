@@ -116,7 +116,7 @@ function get_group_name($teacher_id){
     global $conn;
     $sql="SELECT `student_group_id`,`std_group`.`group_name` FROM `student_group` 
     INNER JOIN `std_group` ON `std_group`.`group_id`= `student_group`.`student_group_id`
-    WHERE `teacher_id1`='$teacher_id'";
+    WHERE `teacher_id1`='$teacher_id' or teacher_id2 = '$teacher_id'";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
     while($row=mysqli_fetch_assoc($res)){

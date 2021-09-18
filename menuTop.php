@@ -8,6 +8,9 @@
         <?php if (empty($_SESSION["status"])) { ?>
           <li class="nav-item active"><a class="nav-link" href="index.php"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</a></li>
         <?php } else { ?>
+          <?php if ($_SESSION["status"] == "officer") { ?>
+            <li class="nav-item active"><a class="nav-link" href="listPrint.php"><i class="fas fa-print"></i> พิมพ์รายงาน</a></li>
+          <?php } ?>
           <?php if ($_SESSION["status"] == "officer" || $_SESSION["status"] == "teacher") { ?>
             <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-file"></i> รายงานสรุป</a></li>
           <?php } ?>
