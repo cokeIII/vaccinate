@@ -9,11 +9,11 @@ if (!empty($_POST["group_id"])) {
     inner join student s on ss.student_id = s.student_id
     inner join doc2 d on d.student_id = ss.student_id
     inner join prefix p on p.prefix_id = s.perfix_id 
-    where s.group_id = '$group_id'";//6320901012
+    where s.group_id = '$group_id'"; //6320901012
 } else {
     $sql = "select *, d.status as docStatus from stu_status ss
-    inner join student s on ss.student_id = s.student_id
     inner join doc2 d on d.student_id = ss.student_id
+    inner join student s on ss.student_id = s.student_id
     inner join prefix p on p.prefix_id = s.perfix_id
     ";
 }
@@ -37,10 +37,10 @@ while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["age"] = calAgeV2($row["birthday"])[0];
     $datalist["data"][$i]["phone_std"] = $row["phone_std"];
     $datalist["data"][$i]["time_stamp"] = $row["time_stamp"];
-    $datalist["data"][$i]["status"] = '<button class="btn '.($row["docStatus"]=="ส่งแล้ว"?"btn-secondary":"btn-success").' updatePrint" stdId="' . $row["student_id"] . '">'.$row["docStatus"].'</button>';
+    $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งแล้ว" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
     // $datalist["data"][$i]["print"] = '<button class="btn btn-success updatePrint" stdId="' . $row["student_id"] . '"><i class="fas fa-clipboard-list"></i></button>';
-    if($row["student_status"] == "ประสงค์จะฉีด"){
-        $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id='.$row["student_id"].'" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
+    if ($row["student_status"] == "ประสงค์จะฉีด") {
+        $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id=' . $row["student_id"] . '" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
     } else {
         $datalist["data"][$i]["btnPrint"] = '';
     }
