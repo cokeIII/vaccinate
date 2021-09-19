@@ -6,15 +6,15 @@ $datalist = array();
 if (!empty($_POST["group_id"])) {
     $group_id = $_POST["group_id"];
     $sql = "select *, d.status as docStatus from stu_status ss
-    left join student s on ss.student_id = s.student_id
+    inner join student s on ss.student_id = s.student_id
     inner join doc2 d on d.student_id = ss.student_id
     inner join prefix p on p.prefix_id = s.perfix_id 
     where s.group_id = '$group_id'";//6320901012
 } else {
     $sql = "select *, d.status as docStatus from stu_status ss
-    left join student s on ss.student_id = s.student_id
+    inner join student s on ss.student_id = s.student_id
     inner join doc2 d on d.student_id = ss.student_id
-    inner join prefix p on p.prefix_id = s.perfix_id limit 3000
+    inner join prefix p on p.prefix_id = s.perfix_id
     ";
 }
 $datalist["data"][0]["std_id"] = "ไม่มีข้อมูล";
