@@ -314,7 +314,7 @@ $student_id = $_GET["id"];
             <?php if (file_exists("signature/" . $row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } else { ?>
-                <div>ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                <div class="mt">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } ?>
             <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
@@ -364,7 +364,11 @@ $student_id = $_GET["id"];
         <div class="center mt">
             <div>ทั้งนี้ ข้าพเจ้าขอรับรองว่าข้อมูลดังกล่าวเป็นความจริง</div>
 
-            <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php if (file_exists("signature/" . $row["signature"])) { ?>
+                <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php } else { ?>
+                <div class="mt">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php } ?>
             <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
             <div>หมายเหตุ : ขอให้นำเอกสารนี้แสดงแก่เจ้าหน้าที่ผู้ให้บริการ ในวันที่ฉีดวัคซีน</div>
