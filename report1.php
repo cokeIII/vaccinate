@@ -126,6 +126,9 @@ $student_id = $_GET["id"];
             width: 85px;
             height: 40px;
         }
+        .mt-s{
+            margin-top: 15px;
+        }
     </style>
 </head>
 
@@ -314,7 +317,7 @@ $student_id = $_GET["id"];
             <?php if (file_exists("signature/" . $row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } else { ?>
-                <div class="mt">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } ?>
             <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
@@ -367,7 +370,7 @@ $student_id = $_GET["id"];
             <?php if (file_exists("signature/" . $row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } else { ?>
-                <div class="mt">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } ?>
             <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
