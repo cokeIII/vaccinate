@@ -127,7 +127,7 @@ $student_id = $_GET["id"];
             height: 40px;
         }
         .mt-s{
-            margin-top: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
