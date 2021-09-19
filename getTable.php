@@ -37,7 +37,11 @@ while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["age"] = calAgeV2($row["birthday"])[0];
     $datalist["data"][$i]["phone_std"] = $row["phone_std"];
     $datalist["data"][$i]["time_stamp"] = $row["time_stamp"];
-    $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งแล้ว" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
+    if ($row["student_status"] == "ประสงค์จะฉีด") {
+        $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งแล้ว" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
+    } else {
+        $datalist["data"][$i]["status"] = '';
+    }
     // $datalist["data"][$i]["print"] = '<button class="btn btn-success updatePrint" stdId="' . $row["student_id"] . '"><i class="fas fa-clipboard-list"></i></button>';
     if ($row["student_status"] == "ประสงค์จะฉีด") {
         $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id=' . $row["student_id"] . '" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
