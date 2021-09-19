@@ -298,11 +298,9 @@ $student_id = $_GET["id"];
             <tr>
                 <td>
                     ชื่อสถานศึกษา วิทยาลัยเทคนิคชลบุรี
-                <td>
-                    สัญชาติ <?php echo $row["nationality"]; ?>
                 </td>
                 <td>
-                    วัน/เดือน/ปีเกิด <?php echo $row["student_group_short_name"]; ?>
+                    ชั้น/ปี <?php echo $row["student_group_short_name"]; ?>
                 </td>
                 <td>
                     ห้อง <?php echo $row["group_no"]; ?>
@@ -347,11 +345,11 @@ $student_id = $_GET["id"];
                 left join topic t on t.topic_id = a.topic_id
                 where a.student_id = '$student_id' order by t.topic_id";
                 $res2 = mysqli_query($conn, $sql2);
-                $i=0;
+                $i = 0;
                 while ($row2 = mysqli_fetch_array($res2)) {
                 ?>
                     <tr>
-                        <td><?php echo (++$i).". ".$row2["topic_detail"] ?></td>
+                        <td><?php echo (++$i) . ". " . $row2["topic_detail"] ?></td>
                         <td width="15%">
                             <input <?php echo ($row2["ass_result"] == 1 ? "checked='checked'" : "false"); ?> type="radio" name="<?php echo $row2["topic_id"]; ?>" value="1" required>ใช่&nbsp;&nbsp;
                             <input <?php echo ($row2["ass_result"] == 0 ? "checked='checked'" : "false"); ?> type="radio" name="<?php echo $row2["topic_id"]; ?>" value="0" required>ไม่ใช่
