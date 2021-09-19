@@ -96,14 +96,14 @@
                 },
                 success: function(result) {
                     if (result == "ok") {
-                        if (thiss.html() == "ส่งแล้ว") {
+                        if (thiss.html() == "ส่งข้อมูล") {
                             thiss.removeClass("btn-secondary")
                             thiss.addClass("btn-success")
                             thiss.html("พิมพ์แล้ว")
                         } else {
                             thiss.removeClass("btn-success")
                             thiss.addClass("btn-secondary")
-                            thiss.html("ส่งแล้ว")
+                            thiss.html("ส่งข้อมูล")
                         }
                     }
                 }

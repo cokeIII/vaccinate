@@ -38,7 +38,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["phone_std"] = $row["phone_std"];
     $datalist["data"][$i]["time_stamp"] = $row["time_stamp"];
     if (!empty($row["docStatus"])) {
-        $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งแล้ว" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
+        $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งข้อมูล" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
     } else {
         $datalist["data"][$i]["status"] = '';
     }
