@@ -311,7 +311,11 @@ $student_id = $_GET["id"];
             <div> ข้าพเจ้า <input type="checkbox" <?php echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?>> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
             <div> <input type="checkbox" <?php echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์สาเหตุ (ถ้ามี)<?php echo $row["note"]; ?></div>
             <div>และรับรองว่าข้อมูลเป็นความจริง</div>
-            <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php if (file_exists("signature/" . $row["signature"])) { ?>
+                <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php } else { ?>
+                <div>ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+            <?php } ?>
             <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
             <div> หมายเหตุ : ขอให้นำเอกสารนี้แสดงแก่ครูประจำชั้นและเจ้าหน้าที่ผู้ให้บริการ ในวันที่ฉีดวัคซีน
