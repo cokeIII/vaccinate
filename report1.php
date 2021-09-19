@@ -289,9 +289,6 @@ $student_id = $_GET["id"];
                 <td>
                     สัญชาติ <?php echo $row["nationality"]; ?>
                 </td>
-                <td>
-                    วัน/เดือน/ปีเกิด <?php echo $row["birthday"]; ?>
-                </td>
             </tr>
         </table>
         <table width="100%">
