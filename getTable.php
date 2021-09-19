@@ -14,7 +14,7 @@ if (!empty($_POST["group_id"])) {
     $sql = "select *, d.status as docStatus from stu_status ss
     left join student s on ss.student_id = s.student_id
     inner join doc2 d on d.student_id = ss.student_id
-    inner join prefix p on p.prefix_id = s.perfix_id
+    inner join prefix p on p.prefix_id = s.perfix_id limit 3000
     ";
 }
 $datalist["data"][0]["std_id"] = "ไม่มีข้อมูล";
