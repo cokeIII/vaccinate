@@ -10,4 +10,4 @@
 <script src="js/jSignature-master/src/plugins/jSignature.CompressorSVG.js"></script>
 <script src="js/jSignature-master/src/plugins/jSignature.UndoButton.js"></script>
 <script src="js/jSignature-master/src/plugins/signhere/jSignature.SignHere.js"></script>
-<script src="http://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
