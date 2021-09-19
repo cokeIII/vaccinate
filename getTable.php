@@ -12,7 +12,7 @@ if (!empty($_POST["group_id"])) {
     where s.group_id = '$group_id'"; //6320901012
 } else {
     $sql = "select *, d.status as docStatus from stu_status ss
-    inner join doc2 d on d.student_id = ss.student_id
+    left join doc2 d on d.student_id = ss.student_id
     inner join student s on ss.student_id = s.student_id
     inner join prefix p on p.prefix_id = s.perfix_id
     ";
