@@ -209,8 +209,16 @@ $student_all=count_all_student();
                                     $sum=count_sum($level,$row['student_group_id']);
                                 }
                                 $percent= status_sent($level,$row['student_group_id'])/$sum*100;
+                                if ($percent>=100){
+                                    $bg='bg-primary text-white' ;
+                                }else if($percent<70){
+                                    $bg='bg-danger text-white' ;
+                                }
+                                else{
+                                    $bg='';
+                                }
                                 ?>
-                                <td class="text-center"><?php echo number_format($percent,2) ?></td>
+                                <td class="text-center <?php echo $bg ?>"><?php echo number_format($percent,2) ?></td>
                             </tr>
                         
                             <?php
