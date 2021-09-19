@@ -37,7 +37,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["age"] = calAgeV2($row["birthday"])[0];
     $datalist["data"][$i]["phone_std"] = $row["phone_std"];
     $datalist["data"][$i]["time_stamp"] = $row["time_stamp"];
-    if ($row["student_status"] == "ประสงค์จะฉีด") {
+    if ($row["student_status"] == "ประสงค์จะฉีด" && $row["student_status"] != "") {
         $datalist["data"][$i]["status"] = '<button class="btn ' . ($row["docStatus"] == "ส่งแล้ว" ? "btn-secondary" : "btn-success") . ' updatePrint" stdId="' . $row["student_id"] . '">' . $row["docStatus"] . '</button>';
     } else {
         $datalist["data"][$i]["status"] = '';
