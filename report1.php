@@ -14,7 +14,7 @@ $mpdf = new mPDF();
 date_default_timezone_set("asia/bangkok");
 function DateThai($strDate)
 {
-    $strYear = date("Y", strtotime($strDate)) + 543;
+    $strYear = date("Y", strtotime($strDate));
     $strMonth = date("n", strtotime($strDate));
     $strDay = date("j", strtotime($strDate));
     $strHour = date("H", strtotime($strDate));
@@ -27,6 +27,7 @@ function DateThai($strDate)
 }
 ob_start(); // Start get HTML code
 $student_id = $_GET["id"];
+$bDate = $_GET["bDate"];
 ?>
 
 
@@ -126,7 +127,8 @@ $student_id = $_GET["id"];
             width: 85px;
             height: 40px;
         }
-        .mt-s{
+
+        .mt-s {
             margin-top: 50px;
         }
     </style>
@@ -210,121 +212,129 @@ $student_id = $_GET["id"];
         แรง หรือมีอาการแขนขาอ่อนแรง รวมถึงหากมีอาการเจ็บแน่นหน้าอก หายใจเหนื่อย หรือหายใจไม่อิ่ม ใจสั่น ซึ่งเป็นอาการที่
         สงสัยภาวะกล้ามเนื้อหัวใจอักเสบ/เยื่อหุ้มหัวใจอักเสบ ควรรีบไปพบแพทย์หรือโทร 1669 เพื่อรับบริการทางการแพทย์ฉุกเฉิน
     </div>
-    <pagebreak />
+
+
     <?php $sql = "select * from doc2 where student_id = '$student_id'
         ";
+    $sql3 = "select * from students s,prefix p where student_id = '$student_id' and s.prefix_id = p.prefix_id ";
+    $res3 = mysqli_query($conn, $sql3);
+    $row3 = mysqli_fetch_array($res3);
+
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res);
+    if ($bDate < 18) {
     ?>
-    <div class="row  mt-3 mt">
-        <div class="col-md-5 bg-head-doc rounded h5 color-b"> ส่วนที่ 2 : เอกสารแสดงความประสงค์ของผู้ปกครองให้บุตรหลานฉีดวัคซีนไฟเซอร์ </div>
-    </div>
-    <div class="mt jst">
-        <table width="100%">
-            <tr>
-                <td>ข้าพเจ้า ชื่อ - นามสกุล <?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?></td>
-                <td>
-                    หมายเลขโทรศัพท์ (ผู้ปกครอง) <?php echo $row["phone_parent"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    ผู้ปกครองของ <?php echo $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"]; ?>
-                </td>
-                <td>
-                    มีความสัมพันธ์เป็น <?php echo $row["relevance"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    ที่อยู่ <?php echo $row["home_id"]; ?>
-                </td>
-                <td>
-                    หมู่ที่ <?php echo $row["moo"]; ?>
-                </td>
-                <td>
-                    ถนน <?php echo $row["street"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    ตำบล/แขวง <?php echo $row["tumbol_name"]; ?>
-                </td>
-                <td>
-                    อำเภอ/เขต <?php echo $row["amphure_name"]; ?>
-                </td>
-                <td>
-                    จังหวัด <?php echo $row["province_name"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    หมายเลขโทรศัพท์ (นักเรียน) <?php echo $row["phone_std"]; ?>
-                </td>
-
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    ชื่อ-นามสกุล (นักเรียน) <?php echo $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"]; ?>
-                </td>
-                <td>
-                    อายุ <?php echo $row["age"]; ?> ปี
-                </td>
-                <td>
-                    วัน/เดือน/ปีเกิด <?php echo $row["birthday"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    เลขประจำตัว 13 หลัก/หมายเลขหนังสือเดินทาง (กรณีชาวต่างประเทศ) <?php echo $row["people_id"]; ?>
-                <td>
-                    สัญชาติ <?php echo $row["nationality"]; ?>
-                </td>
-            </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td>
-                    ชื่อสถานศึกษา วิทยาลัยเทคนิคชลบุรี
-                </td>
-                <td>
-                    ชั้น/ปี <?php echo $row["student_group_short_name"]; ?>
-                </td>
-                <td>
-                    ห้อง <?php echo $row["group_no"]; ?>
-                </td>
-            </tr>
-        </table>
-        <div class="center mt">
-            <div> ทั้งนี้ ข้าพเจ้าได้รับทราบข้อมูลและได้ซักถามรายละเอียดจนเข้าใจเกี่ยวกับวัคซีนไฟเซอร์และอาการไมพึงประสงคของวัคซีนที่
-                อาจเกิดขึ้น เป็นที่เรียบร้อยแล้ว</div>
-
-            <div> ข้าพเจ้า <input type="checkbox" <?php echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?>> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
-            <div> <input type="checkbox" <?php echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์สาเหตุ (ถ้ามี)<?php echo $row["note"]; ?></div>
-            <div>และรับรองว่าข้อมูลเป็นความจริง</div>
-            <?php if (file_exists("signature/" . $row["signature"])) { ?>
-                <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
-            <?php } else { ?>
-                <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
-            <?php } ?>
-            <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
-            <div> วันที่............./........................./..................</div>
-            <div> หมายเหตุ : ขอให้นำเอกสารนี้แสดงแก่ครูประจำชั้นและเจ้าหน้าที่ผู้ให้บริการ ในวันที่ฉีดวัคซีน
-                ข้อควรรู้เกี่ยวกับโรคโควิด-19 และวัคซีนโควิด-19 สามารถดาวน์โหลดอ่านได้ที่ QR code</div>
+        <pagebreak />
+        <div class="row  mt-3 mt">
+            <div class="col-md-5 bg-head-doc rounded h5 color-b"> ส่วนที่ 2 : เอกสารแสดงความประสงค์ของผู้ปกครองให้บุตรหลานฉีดวัคซีนไฟเซอร์ </div>
         </div>
-        <?php $mpdf->AddPage(); ?>
+        <div class="mt jst">
+            <table width="100%">
+                <tr>
+                    <td>ข้าพเจ้า ชื่อ - นามสกุล <?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?></td>
+                    <td>
+                        หมายเลขโทรศัพท์ (ผู้ปกครอง) <?php echo $row["phone_parent"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ผู้ปกครองของ <?php echo $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"]; ?>
+                    </td>
+                    <td>
+                        มีความสัมพันธ์เป็น <?php echo $row["relevance"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ที่อยู่ <?php echo $row["home_id"]; ?>
+                    </td>
+                    <td>
+                        หมู่ที่ <?php echo $row["moo"]; ?>
+                    </td>
+                    <td>
+                        ถนน <?php echo $row["street"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ตำบล/แขวง <?php echo $row["tumbol_name"]; ?>
+                    </td>
+                    <td>
+                        อำเภอ/เขต <?php echo $row["amphure_name"]; ?>
+                    </td>
+                    <td>
+                        จังหวัด <?php echo $row["province_name"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        หมายเลขโทรศัพท์ (นักเรียน) <?php echo $row["phone_std"]; ?>
+                    </td>
+
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ชื่อ-นามสกุล (นักเรียน) <?php echo $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"]; ?>
+                    </td>
+                    <td>
+                        อายุ <?php echo $row["age"]; ?> ปี
+                    </td>
+                    <td>
+                        วัน/เดือน/ปีเกิด <?php echo DateThai($row["birthday"]); ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        เลขประจำตัว 13 หลัก/หมายเลขหนังสือเดินทาง (กรณีชาวต่างประเทศ) <?php echo $row["people_id"]; ?>
+                    <td>
+                        สัญชาติ <?php echo $row["nationality"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ชื่อสถานศึกษา วิทยาลัยเทคนิคชลบุรี
+                    </td>
+                    <td>
+                        ชั้น/ปี <?php echo $row["student_group_short_name"]; ?>
+                    </td>
+                    <td>
+                        ห้อง <?php echo $row["group_no"]; ?>
+                    </td>
+                </tr>
+            </table>
+            <div class="center mt">
+                <div> ทั้งนี้ ข้าพเจ้าได้รับทราบข้อมูลและได้ซักถามรายละเอียดจนเข้าใจเกี่ยวกับวัคซีนไฟเซอร์และอาการไมพึงประสงคของวัคซีนที่
+                    อาจเกิดขึ้น เป็นที่เรียบร้อยแล้ว</div>
+
+                <div> ข้าพเจ้า <input type="checkbox" <?php echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?>> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
+                <div> <input type="checkbox" <?php echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์สาเหตุ (ถ้ามี)<?php echo $row["note"]; ?></div>
+                <div>และรับรองว่าข้อมูลเป็นความจริง</div>
+                <?php if (file_exists("signature/" . $row["signature"])) { ?>
+                    <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                <?php } else { ?>
+                    <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                <?php } ?>
+                <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
+                <div> วันที่............./........................./..................</div>
+                <div> หมายเหตุ : ขอให้นำเอกสารนี้แสดงแก่ครูประจำชั้นและเจ้าหน้าที่ผู้ให้บริการ ในวันที่ฉีดวัคซีน
+                    ข้อควรรู้เกี่ยวกับโรคโควิด-19 และวัคซีนโควิด-19 สามารถดาวน์โหลดอ่านได้ที่ QR code</div>
+            </div>
+        <?php }
+    $mpdf->AddPage(); ?>
         <pagebreak />
         <h3>ภาคผนวกที่ 5 แบบคัดกรองก่อนรับบริการฉีดวัคซีนโควิด 19 สำหรับนักเรียน/นักศึกษา
             ชั้นมัธยมศึกษาปีที่ 1-6 หรือเทียบเท่า</h3>
@@ -372,11 +382,11 @@ $student_id = $_GET["id"];
             <?php } else { ?>
                 <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
             <?php } ?>
-            <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
+            <div>(<?php echo ($bDate < 18 ? $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"] : $row3["prefix_name"] . $row3["stu_fname"] . " " . $row3["stu_lname"]); ?>)</div>
             <div> วันที่............./........................./..................</div>
             <div>หมายเหตุ : ขอให้นำเอกสารนี้แสดงแก่เจ้าหน้าที่ผู้ให้บริการ ในวันที่ฉีดวัคซีน</div>
         </div>
-    </div>
+        </div>
 </body>
 
 </html>
