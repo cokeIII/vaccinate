@@ -330,7 +330,7 @@ function get_status($stu_id){
     if ($row['student_status']!=''){
         return $row['student_status'] ;
     }else{
-        return 'ไม่บันทึกข้อมูล';
+        return '<font color="red">ไม่บันทึกข้อมูล</font>';
     }
     
 }
