@@ -1,7 +1,7 @@
 <?php
 require_once "connect.php";
 session_start();
-
+header('Content-Type: text/html; charset=utf-8');
 $student_id = $_SESSION["student_id"];
 $topic[0] = $_POST["1"];
 $topic[1] = $_POST["2"];
@@ -26,4 +26,7 @@ value('$student_id','$topicC','$topicData')";
         $check = "";
     }
 }
+$sqlPrint = "replace into doc3_ass (student_id,status_print) values('$student_id','ส่งข้อมูล')";
+$resPrint = mysqli_query($conn,$sqlPrint);
+
 echo $check;
