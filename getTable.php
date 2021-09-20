@@ -45,6 +45,8 @@ while ($row = mysqli_fetch_assoc($res)) {
     // $datalist["data"][$i]["print"] = '<button class="btn btn-success updatePrint" stdId="' . $row["student_id"] . '"><i class="fas fa-clipboard-list"></i></button>';
     if ($row["student_status"] == "ประสงค์จะฉีด") {
         $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id=' . $row["student_id"] . '&bDate='.calAgeV2($row["birthday"])[0].'" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
+    } else if($row["student_status"] == "ฉีดแล้ว"){
+        $datalist["data"][$i]["btnPrint"] = '<a href="report2.php?id=' . $row["student_id"] . '&bDate='.calAgeV2($row["birthday"])[0].'" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
     } else {
         $datalist["data"][$i]["btnPrint"] = '';
     }
