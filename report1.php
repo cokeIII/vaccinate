@@ -217,8 +217,8 @@ $row3 = mysqli_fetch_array($res3);
     </div>
     <?php if ($bDate > 17) { ?>
         <div class="center mt">
-            <div> ข้าพเจ้า <input type="checkbox" <?php echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?>> ประสงค์ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
-            <div> <input type="checkbox" <?php echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้ฉีดวัคซีนไฟเซอร์<?php echo $row["note"]; ?></div>
+            <div> ข้าพเจ้า <input type="checkbox" <?php //echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?> checked='checked'> ประสงค์ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
+            <div> <input type="checkbox" <?php //echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้ฉีดวัคซีนไฟเซอร์<?php echo $row["note"]; ?></div>
             <div>และรับรองว่าข้อมูลเป็นความจริง</div>
             <?php if (file_exists("signature/" . $row["signature"]) && !empty($row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"></div>
