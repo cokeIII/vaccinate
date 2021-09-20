@@ -12,6 +12,7 @@
             <li class="nav-item active"><a class="nav-link" href="listPrint.php"><i class="fas fa-print"></i> พิมพ์รายงาน</a></li>
           <?php } ?>
           <?php if ($_SESSION["status"] == "officer" || $_SESSION["status"] == "teacher") { ?>
+            <li class="nav-item active"><a class="nav-link" href="show_superviser.php"><i class="fas fa-file"></i> รายงานสรุปครูที่ปรึกษา</a></li>
             <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-file"></i> รายงานสรุป</a></li>
           <?php } ?>
           <?php if ($_SESSION["status"] == "admin") { ?>
