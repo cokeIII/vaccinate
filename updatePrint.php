@@ -3,7 +3,7 @@ require_once "connect.php";
 $student_id = $_POST["student_id"];
 $status = $_POST["status"];
 if($status == "พิมพ์แล้ว"){
-    $status = "ส่งแล้ว";
+    $status = "ส่งข้อมูล";
 } else {
     $status = "พิมพ์แล้ว";
 }
