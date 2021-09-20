@@ -390,10 +390,10 @@ $row3 = mysqli_fetch_array($res3);
         <div class="center mt">
             <div>ทั้งนี้ ข้าพเจ้าขอรับรองว่าข้อมูลดังกล่าวเป็นความจริง</div>
 
-            <?php if (file_exists("signature/" . $row["signature"] && !empty($row["signature"]))) { ?>
-                <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม":"")?></div>
+            <?php if (file_exists("signature/" . $row["signature"]) && !empty($row["signature"])) { ?>
+                <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม" : "") ?></div>
             <?php } else { ?>
-                <div class="mt-s">ลงชื่อ.............................................................................. <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม":"")?></div>
+                <div class="mt-s">ลงชื่อ.............................................................................. <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม" : "") ?></div>
             <?php } ?>
             <div>(<?php echo ($bDate < 18 ? $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"] : $row3["prefix_name"] . $row3["stu_fname"] . " " . $row3["stu_lname"]); ?>)</div>
             <div> วันที่............./........................./..................</div>
