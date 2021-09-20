@@ -184,6 +184,7 @@ $student_all=count_all_student();
                                 <th class="text-center">ฉีดแล้ว</th>
                                 <th class="text-center">ฉีดภูมิลำเนา</th>
                                 <th class="text-center"> % </th>
+                                <th>print</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -219,7 +220,9 @@ $student_all=count_all_student();
                                 }
                                 ?>
                                 <td class="text-center <?php echo $bg ?>"><?php echo number_format($percent,2) ?></td>
+                                <td><a href="report_group.php?group=<?php echo $row['student_group_id']?>" target="_blank"><button class="btn bg-info">print</button></a></td>
                             </tr>
+                            
                         
                             <?php
                             }

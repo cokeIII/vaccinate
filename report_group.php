@@ -27,8 +27,8 @@ function DateThai($strDate)
     return "$strDay $strMonthThai $strYear";
 }
 ob_start(); // Start get HTML code
-// $group_id = $_GET["group"];
-$group_id='642010104';
+$group_id = $_GET["group"];
+// $group_id='642010104';
 ?>
 
 
@@ -145,7 +145,7 @@ $group_id='642010104';
 </head>
 
 <body class="content">
-    <h3 style="text-align: center">แบบสำรวจการฉีดวัคซีน Pfizer สำหรับนักเรียน นักศึกษา ระดับชั้น ปวช.1-3 / ปวส.1-2</h3>
+    <h4 style="text-align: center">แบบสำรวจการฉีดวัคซีน Pfizer สำหรับนักเรียน นักศึกษา ระดับชั้น ปวช.1-3 / ปวส.1-2</h4>
 
             <table width="100%" >
                 <tr>
@@ -181,6 +181,7 @@ $group_id='642010104';
         <table class="table mt-5" border="1"  width="100%">
             <tr>
                 <th width="20px" class="center color-b ">ลำดับ</th>
+                <th  class="center">รหัสนักเรียน</th>
                 <th width="20%" class="center">ชื่อ-นามสกุล</th>
                 <th class="center">หมายเลขบัตรประชาชน</th>
                 <th class="center">วัน/เดือน/ปีเกิด</th>
@@ -207,6 +208,7 @@ $group_id='642010104';
             ?>
                 <tr>
                     <td><?php echo $i ?></td>
+                    <td><?php echo $row['student_id']?></td>
                     <td class="text-left"><?php echo $row['name']?></td>
                     <td ><?php echo $row['people_id']?></td>
                     <td ><?php echo $row['birthday']?></td>
@@ -220,7 +222,7 @@ $group_id='642010104';
                 <tr class="bg-color">
                     <td colspan="2"> รวม (ผู้รับวัคซีน)</td>
                     <td > <?php echo $i?> คน</td>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                 </tr>
         <!-- </table>
         <table class="table mt-5" border="1"  width="100%"> -->
@@ -239,6 +241,7 @@ $group_id='642010104';
             ?>
                 <tr>
                     <td><?php echo $c ?></td>
+                    <td><?php echo $row2['student_id']?></td>
                     <td class="text-left"><?php echo $row2['name']?></td>
                     <td ><?php echo $row2['people_id']?></td>
                     <td ><?php echo $row2['birthday']?></td>
@@ -252,12 +255,12 @@ $group_id='642010104';
                 <tr class="bg-color">
                     <td colspan="2"> รวม (ผู้ไม่รับวัคซีน)</td>
                     <td > <?php echo $c?> คน</td>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                 </tr>
                 <tr class="bg-color2">
                     <td colspan="2"> รวมทั้งหมด</td>
                     <td > <?php echo $c+$i?> คน</td>
-                    <td colspan="4"></td>
+                    <td colspan="5"></td>
                 </tr>
         </table>
         <table    width="100%">
@@ -287,6 +290,7 @@ $group_id='642010104';
 <?php
 $html = ob_get_contents();
 // $mpdf->AddPage('L');
+
 $mpdf->WriteHTML($html);
 $taget = "pdf/report_group.pdf";
 $mpdf->Output($taget);
