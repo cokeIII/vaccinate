@@ -158,6 +158,7 @@ $bDate = $_GET["bDate"];
     </style>
 </head>
 <?php
+// test
 $student_id = $_GET["id"];
 $bDate = $_GET["bDate"];
 $sql = "select * from 
