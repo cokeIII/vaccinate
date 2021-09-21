@@ -314,11 +314,11 @@ $group_id = $_GET["group"];
 $html = ob_get_contents();
 // $mpdf->AddPage('L');
 
-// $mpdf->WriteHTML($html);
-// $taget = "pdf/report_group.pdf";
-// $mpdf->Output($taget);
-// ob_end_flush();
-// echo "<script>window.location.href='$taget';</script>";
+$mpdf->WriteHTML($html);
+$taget = "pdf/report_group.pdf";
+$mpdf->Output($taget);
+ob_end_flush();
+echo "<script>window.location.href='$taget';</script>";
 // exit;
 
 function get_group_detail($gid){
