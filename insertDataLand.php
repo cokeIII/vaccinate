@@ -30,7 +30,7 @@ $sqlStatus = "insert into stu_status (student_id,student_status) value('$student
 $resStatus = mysqli_query($conn, $sqlStatus);
 $sqlLand = "replace into student_land (student_id,amphure_id) values ('$student_id','$amphure_id')";
 $resLand = mysqli_query($conn, $sqlLand);
-if (mysqli_affected_rows($conn)) {
+if (mysqli_affected_rows($conn) > 0) {
     $re = "ok";
 } else {
     $re = "";

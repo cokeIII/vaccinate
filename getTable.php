@@ -18,6 +18,7 @@ if (!empty($_POST["group_id"])) {
     ";
 }
 $datalist["data"][0]["std_id"] = "ไม่มีข้อมูล";
+$datalist["data"][0]["group_name"] = "";
 $datalist["data"][0]["std_name"] = "";
 $datalist["data"][0]["stu_status"] = "";
 $datalist["data"][0]["age"] = "";
@@ -32,6 +33,7 @@ $res = mysqli_query($conn, $sql);
 $i = 0;
 while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["std_id"] = $row["student_id"];
+    $datalist["data"][$i]["group_name"] = $row["group_id"];
     $datalist["data"][$i]["std_name"] = $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"];
     $datalist["data"][$i]["stu_status"] = $row["student_status"];
     $datalist["data"][$i]["age"] = calAgeV2($row["birthday"])[0];
@@ -44,7 +46,9 @@ while ($row = mysqli_fetch_assoc($res)) {
     }
     // $datalist["data"][$i]["print"] = '<button class="btn btn-success updatePrint" stdId="' . $row["student_id"] . '"><i class="fas fa-clipboard-list"></i></button>';
     if ($row["student_status"] == "ประสงค์จะฉีด") {
-        $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id=' . $row["student_id"] . '" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
+        $datalist["data"][$i]["btnPrint"] = '<a href="report1.php?id=' . $row["student_id"] . '&bDate='.calAgeV2($row["birthday"])[0].'" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
+    } else if($row["student_status"] == "ฉีดแล้ว"){
+        $datalist["data"][$i]["btnPrint"] = '<a href="report2.php?id=' . $row["student_id"] . '&bDate='.calAgeV2($row["birthday"])[0].'" target="_blank"><button class="btn btn-success print" stdId="' . $row["student_id"] . '"><i class="fas fa-print"></i></button></a>';
     } else {
         $datalist["data"][$i]["btnPrint"] = '';
     }

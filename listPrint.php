@@ -38,6 +38,7 @@
                                     <thead>
                                         <tr>
                                             <th>รหัสประจำตัวนักเรียน/นักศึกษา</th>
+                                            <th>รหัสกลุ่ม</th>
                                             <th>ชื่อ - สกุล</th>
                                             <th>สถานะที่ลงทะเบียน</th>
                                             <th>อายุ</th>
@@ -134,6 +135,9 @@
                         "data": "std_id"
                     },
                     {
+                        "data": "group_name"
+                    },
+                    {
                         "data": "std_name"
                     },
                     {
@@ -196,6 +200,9 @@
             'processing': true,
             "columns": [{
                     "data": "std_id"
+                },
+                {
+                    "data": "group_name"
                 },
                 {
                     "data": "std_name"
