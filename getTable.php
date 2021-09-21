@@ -18,6 +18,7 @@ if (!empty($_POST["group_id"])) {
     ";
 }
 $datalist["data"][0]["std_id"] = "ไม่มีข้อมูล";
+$datalist["data"][0]["group_name"] = "";
 $datalist["data"][0]["std_name"] = "";
 $datalist["data"][0]["stu_status"] = "";
 $datalist["data"][0]["age"] = "";
@@ -32,6 +33,7 @@ $res = mysqli_query($conn, $sql);
 $i = 0;
 while ($row = mysqli_fetch_assoc($res)) {
     $datalist["data"][$i]["std_id"] = $row["student_id"];
+    $datalist["data"][$i]["group_name"] = $row["group_id"];
     $datalist["data"][$i]["std_name"] = $row["prefix_name"] . $row["stu_fname"] . " " . $row["stu_lname"];
     $datalist["data"][$i]["stu_status"] = $row["student_status"];
     $datalist["data"][$i]["age"] = calAgeV2($row["birthday"])[0];
