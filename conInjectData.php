@@ -37,7 +37,7 @@
                                 <div class="text-content"><strong>วัน/เดือน/ปีเกิด : </strong> <?php echo $_SESSION["birthday"]; ?></div>
                             </div>
                         </div>
-                        <form action="confirm.php" method="post" id="confirm">
+                        <form method="post" id="confirm">
                             <?php $topic = 0;
                             if ($ageArr[0] < 18) { ?>
                                 <div class="row justify-content-center mt-2">
@@ -109,10 +109,10 @@
                                                         <input type="radio" name="inject" id="noInject" value="ไม่ประสงค์ฉีด" class="no-inject" required>
                                                         ไม่ประสงค์ฉีด
                                                     </div>
-                                                    <!-- <div>
+                                                    <div>
                                                         <input type="radio" name="inject" id="covid19" value="ได้รับเชื้อไวรัสโควิด 19" class="no-inject" required>
                                                         เคยติดเชื้อไวรัสโคโรนา 2019
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -212,12 +212,97 @@
         </div>
     </div>
 </body>
+<!-- Modal -->
+<div class="modal fade" id="covid19NotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ตัวเลือกการฉีดวัคซีน</h5>
+                <button type="button" class="close btn-hide" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="notInfectForm">
+                    <input type="hidden" name="notOk" value="true">
+                    <input type="hidden" class="infect_date" name="infect_date" value="">
+                    <input type="hidden" name="covidInject" value="ได้รับเชื้อไม่เกิน3เดือน">
+                    <h6>เนื่องจากได้รับเชื้อไม่เกิน 3 เดือน จึงไม่สามารถรับวัคซีนได้</h6>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-success">ยืนยันข้อมูล</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-hide" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="covid19Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ตัวเลือกการฉีดวัคซีน</h5>
+                <button type="button" class="close btn-hide" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="infectForm">
+                    <input type="hidden" name="ok" value="true">
+                    <input type="hidden" class="infect_date" name="infect_date" value="">
+                    <input type="radio" name="covidInject" id="" value="ประสงค์จะฉีด" required>
+                    ประสงค์จะฉีด
+                    <input type="radio" name="covidInject" id="" value="ไม่ประสงค์จะฉีด" required>
+                    ไม่ประสงค์จะฉีด
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-success">ยืนยันข้อมูล</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-hide" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
 <?php require_once "setFoot.php"; ?>
 <script>
     $(document).ready(function() {
         // $(document)
+        $(document).on('submit', '#notInfectForm', function() {
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "infect.php",
+                data: formData,
+                success: function(result) {
+                    if (result == "ได้รับเชื้อไม่เกิน3เดือน") {
+                        window.location.replace("success.php");
+                    }
+                }
+            });
+            return false
+        })
+        $(document).on('submit', '#infectForm', function() {
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "infect.php",
+                data: formData,
+                success: function(result) {
+                    if (result == "ประสงค์จะฉีด") {
+                        window.location.replace("conInject.php");
+                    } else if(result == "ไม่ประสงค์จะฉีด") {
+                        window.location.replace("success.php");
+                    }
+                }
+            });
+            return false
+        })
         $("#amphure").select2({
             width: "100%"
         })
@@ -267,10 +352,11 @@
                 }
             });
         })
-        $(document).on('change', '#province', function() {
-
+        $(document).on('click', '.btn-hide', function() {
+            $('.modal').modal('hide');
         })
-        $(document).on('submit', '#confirm', function() {
+        $(document).on('submit', '#confirm', function(event) {
+            event.preventDefault();
             var formData = $(this).serialize();
             if ($('#inject').is(':checked')) {
                 if ($('.injectDate').val() == "") {
@@ -330,18 +416,21 @@
                     alert("กรุณาเลือกวันที่ติดเชื้อ")
                     return false
                 }
-
-                var start = $('#start_date').val();
-                var end = $('#end_date').val();
-
-                // end - start returns difference in milliseconds 
-                var diff = new Date(end - start);
+                $(".infect_date").val($('#covid19D').val())
+                var dNow = new Date();
+                var d = new Date($('#covid19D').val());
+                d.setMonth(d.getMonth() + 3);
+                d = new Date(d.toLocaleDateString());
+                var diff = new Date(d - dNow);
 
                 // get days
                 var days = diff / 1000 / 60 / 60 / 24;
-
                 console.log(days)
-
+                if (days <= 0) {
+                    $("#covid19Modal").modal('show')
+                } else {
+                    $("#covid19NotModal").modal('show')
+                };
             } else if ($('#willInject').is(':checked')) {
                 $.ajax({
                     type: "POST",
@@ -408,16 +497,16 @@
                 'id = "needle"' +
                 'class = "form-control needle" >' +
                 '</div>' +
-                '<div>'+
-                'ชื่อวัคซีน:'+
-                '<select name="vaccineName[]" id="vaccineName" class="form-control">'+
-                    '<option value="">-- กรุณาเลือกวัคซีน --</option>'+
-                    '<option value="Pfizer">Pfizer</option>'+
-                    '<option value="AstraZeneca">AstraZeneca</option>'+
-                    '<option value="Sinovac">Sinovac</option>'+
-                    '<option value="Sinopharm">Sinopharm</option>'+
-                '</select>'+
-                '</div>'+
+                '<div>' +
+                'ชื่อวัคซีน:' +
+                '<select name="vaccineName[]" id="vaccineName" class="form-control">' +
+                '<option value="">-- กรุณาเลือกวัคซีน --</option>' +
+                '<option value="Pfizer">Pfizer</option>' +
+                '<option value="AstraZeneca">AstraZeneca</option>' +
+                '<option value="Sinovac">Sinovac</option>' +
+                '<option value="Sinopharm">Sinopharm</option>' +
+                '</select>' +
+                '</div>' +
                 '<div>' +
                 'lot NO:' +
                 '<input type = "text"' +

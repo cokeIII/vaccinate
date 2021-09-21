@@ -26,7 +26,7 @@ $sql = "update students set status = '$status', parent_id = '$parent_id' where s
 $res = mysqli_query($conn, $sql);
 $sqlStatus = "insert into stu_status (student_id,student_status) value('$student_id','$status')";
 $resStatus = mysqli_query($conn, $sqlStatus);
-if (mysqli_affected_rows($conn)) {
+if (mysqli_affected_rows($conn) > 0) {
     $re = "ok";
 } else {
     $re = "";
