@@ -166,6 +166,7 @@ inner join prefix p on s.perfix_id = p.prefix_id
 inner join tumbol t on s.tumbol_id = t.tumbol_id
 inner join amphure a on a.amphure_id = t.amphure_id
 inner join province pv on pv.province_id = a.province_id 
+where s.student_id = '$student_id'
 ";
 $res = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($res);
