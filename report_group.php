@@ -242,7 +242,8 @@ $group_id = $_GET["group"];
         <!-- </table>
         <table class="table mt-5" border="1"  width="100%"> -->
             <?php
-                if (is_array($arr_std_id)){
+            print_r($arr_std_id);
+                if ($arr_std_id!=''){
                     $sql2="SELECT std.`student_id` , concat(prefix.prefix_name ,std.stu_fname,' ',std.stu_lname) as name, std.people_id, std.birthday
                         FROM students std
                         INNER JOIN prefix on prefix.prefix_id=std.prefix_id 
