@@ -8,23 +8,30 @@
     if (calAgeV2($_SESSION["birthday"])[0] >= 18) {
         header("location: conInject3.php");
     }
-    if(!empty($_SESSION["student_id"])){
+    if (!empty($_SESSION["student_id"])) {
         $student_id = $_SESSION["student_id"];
-    } else if(!empty($_GET["student_id"])){
+    } else if (!empty($_GET["student_id"])) {
         $student_id = $_GET["student_id"];
     } else {
         header("location: logout.php");
     }
-    
-    $sql = "select e.phone as parentPhone,sg.*,t.amphure_id,s.*,pr.*,dp.prefix_name as prefix_name_db,p.prefix_name as prefix_name_p
-        from students s,prefix p,parents pr,data_prefix dp,tumbol t,student_group sg,enroll e
-        where s.student_id = '$student_id' 
-        and p.prefix_id = s.prefix_id
-        and pr.parent_th_prefix = dp.prefix_code
-        and s.parent_id = pr.parent_id
-        and s.tumbol_id = t.tumbol_id
-        and sg.student_group_id = s.group_id
-        and e.student_id = s.student_id
+
+    $sql = "select 
+    e.phone as parentPhone,
+    sg.*,
+    t.amphure_id,
+    s.*,
+    pr.*,
+    dp.prefix_name as prefix_name_db,
+    p.prefix_name as prefix_name_p
+        from students s
+        left join prefix p on p.prefix_id = s.prefix_id
+        left join parents pr on s.parent_id = pr.parent_id
+        left join data_prefix dp on pr.parent_th_prefix = dp.prefix_code
+        left join tumbol t on s.tumbol_id = t.tumbol_id
+        left join student_group sg on sg.student_group_id = s.group_id
+        left join enroll e on e.student_id = s.student_id
+        where s.student_id = '$student_id'
         ";
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res);
@@ -91,7 +98,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>หมู่ที่</label>
-                                            <input value="<?php echo $row["moo"]; ?>" type="number" name="moo" id="moo" class="form-control mt-1" placeholder="" >
+                                            <input value="<?php echo $row["moo"]; ?>" type="number" name="moo" id="moo" class="form-control mt-1" placeholder="">
                                         </div>
                                         <div class="col-md-4">
                                             <label>ถนน</label>
