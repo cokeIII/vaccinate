@@ -172,7 +172,8 @@ $group_id = $_GET["group"];
         WHERE std.group_id='$group_id'
         AND stu_status.`student_status`='ประสงค์จะฉีด'
         ";
-    $res = mysqli_query($conn, $sql);
+        // echo $sql;
+        $res = mysqli_query($conn, $sql);
     ?>
     <div class="row  mt-3 mt">
         <div class=""><strong>คำชี้แจง</strong> ขอให้ครูที่ปรึกษาประจำชั้นสำรวจข้อมูลการฉีดวัคซีน Pfizer สำหรับนักเรียน/นักศึกษาระดับชั้นปวช.1-3 / ปวส.1-2 แต่ละห้องเรียน </div>
@@ -217,6 +218,20 @@ $group_id = $_GET["group"];
                     <td></td>
                 </tr>
             <?php } 
+            if ($rowcount==0){
+                ?>
+                <tr>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> - </td>
+                </tr>
+                <?php
+            }
             // echo $arr_std_id;
             ?>
                 <tr class="bg-color">
@@ -227,12 +242,20 @@ $group_id = $_GET["group"];
         <!-- </table>
         <table class="table mt-5" border="1"  width="100%"> -->
             <?php
-                $sql2="SELECT std.`student_id` , concat(prefix.prefix_name ,std.stu_fname,' ',std.stu_lname) as name, std.people_id, std.birthday
-                FROM students std
-                INNER JOIN prefix on prefix.prefix_id=std.prefix_id 
-                WHERE std.group_id='$group_id' 
-                AND std.`student_id` not in $arr_std_id
-                ";
+                if (is_array($arr_std_id)){
+                    $sql2="SELECT std.`student_id` , concat(prefix.prefix_name ,std.stu_fname,' ',std.stu_lname) as name, std.people_id, std.birthday
+                        FROM students std
+                        INNER JOIN prefix on prefix.prefix_id=std.prefix_id 
+                        WHERE std.group_id='$group_id' 
+                        AND std.`student_id` not in $arr_std_id
+                        ";
+                }else{
+                    $sql2="SELECT std.`student_id` , concat(prefix.prefix_name ,std.stu_fname,' ',std.stu_lname) as name, std.people_id, std.birthday
+                        FROM students std
+                        INNER JOIN prefix on prefix.prefix_id=std.prefix_id 
+                        WHERE std.group_id='$group_id' 
+                        ";
+                }
                 // echo $sql2;
                 $res2 = mysqli_query($conn, $sql2);
                 $c=0;
