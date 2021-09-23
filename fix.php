@@ -18,7 +18,7 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-        <!-- Sideb/ar-->
+        <!-- Sidebar-->
         <?php //require_once "menuSidebar.php"; 
         ?>
         <!-- Page content wrapper-->

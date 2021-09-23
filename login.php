@@ -66,6 +66,7 @@ if ($username == "admin" && $password == "12345678") {
                 header("location: listVaccine.php");
             }
         }
+        // fix
         header("location: fix.php");
     } else {
         header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
