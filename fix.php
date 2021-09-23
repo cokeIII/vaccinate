@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="row mt-5">
                                     <div class="col-md-12">
-                                        <div class="text-err h3">ขออภัยปิดปรับปรุงข้อมูล สักครู่</div>
+                                        <div class="text-err h3">ปิดรับข้อมูล</div>
                                     </div>
                                 </div>
                             </div>
