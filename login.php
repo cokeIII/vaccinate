@@ -5,7 +5,7 @@ session_start();
 $username = $_POST["username"];
 $password = $_POST["password"];
 header('Content-Type: text/html; charset=UTF-8');
-checkStd($username);
+// checkStd($username);
 if ($username == "admin" && $password == "12345678") {
     $_SESSION["username"] = "admin";
     $_SESSION["status"] = "admin";
@@ -66,7 +66,7 @@ if ($username == "admin" && $password == "12345678") {
                 header("location: listVaccine.php");
             }
         }
-        // header("location: fix.php");
+        header("location: fix.php");
     } else {
         header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
     }
