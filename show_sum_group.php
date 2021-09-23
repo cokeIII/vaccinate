@@ -448,7 +448,8 @@ function get_all_location(){
 function get_all_ready(){
     global $conn;
     $sql="SELECT count(*) as c FROM `stu_status` 
-    where`student_status`='ฉีดแล้ว'";
+    where`student_status`='ฉีดแล้ว'
+    and student_id !=''";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($res);
