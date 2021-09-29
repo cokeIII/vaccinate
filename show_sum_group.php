@@ -64,6 +64,11 @@ $student_all=count_all_student();
                         <div class="card-header text-white text-center">ฉีดภูมิลำเนา</div>
                         <div class="card-body text-white text-center"><?php echo get_all_location()?></div>
                     </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="card bg-info" style="width:150px">
+                        <div class="card-header text-white text-center">ได้รับเชื้อไม่เกิน3เดือน</div>
+                        <div class="card-body text-white text-center"><?php echo get_all_weak()?></div>
+                    </div>
                 </div>
                 <br>
 
@@ -449,6 +454,17 @@ function get_all_ready(){
     global $conn;
     $sql="SELECT count(*) as c FROM `stu_status` 
     where`student_status`='ฉีดแล้ว'
+    and student_id !=''";
+    // echo $sql;
+    $res=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($res);
+    return $row['c'];
+}
+// ได้รับเชื้อไม่เกิน3เดือน
+function get_all_weak(){
+    global $conn;
+    $sql="SELECT count(*) as c FROM `stu_status` 
+    where`student_status`='ได้รับเชื้อไม่เกิน3เดือน'
     and student_id !=''";
     // echo $sql;
     $res=mysqli_query($conn,$sql);
