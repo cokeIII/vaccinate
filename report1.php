@@ -15,7 +15,7 @@ date_default_timezone_set("asia/bangkok");
 function DateThai($strDate)
 {
     $exDate = explode("/",$strDate);
-    $strDate = $exDate[1]+"/"+$exDate[0]+"/"+$exDate[2];
+    $strDate = $exDate[1]+"/"+$exDate[0]+"/"+$exDate[2]-543;
     $strYear = date("Y", strtotime($strDate));
     $strMonth = date("n", strtotime($strDate));
     $strDay = date("j", strtotime($strDate));
