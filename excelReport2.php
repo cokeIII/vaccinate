@@ -62,7 +62,7 @@ $res = mysqli_query($conn, $sql);
                 <td><?php echo $row["people_idD"]; ?></td>
                 <td><?php echo "A".(empty($row["phone_std"])? (empty($row["par_tell"])?(empty($row["fat_tell"])?$row["mot_tell"]:$row["fat_tell"]):$row["par_tell"]) : $row["phone_std"]); ?></td>
                 <td>
-                    <?php echo ($row["student_status"] == "ประสงค์จะฉีด" ? "รับ" : "ไม่รับ"); ?>
+                    <?php echo ($row["student_status"] == "ประสงค์จะฉีด" ? "รับ" : ($row["student_status"] == "ไม่ประสงค์จะฉีด"?"ไม่รับ":$row["student_status"])); ?>
                 </td>
                 <td>
                     <?php echo (empty($row["province_nameD"])?$row["province_name"]:$row["province_nameD"]); ?>
