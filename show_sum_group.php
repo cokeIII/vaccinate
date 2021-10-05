@@ -125,7 +125,11 @@ $student_all=count_all_student();
                                     <button type="button" class="btn btn-info"> excel </button></a>
                                 </div> -->
                             </form>
+                            
                         </div>  
+                    </div>
+                    <div class="col-md-3">
+                        <a href="report_group_all.php"><button> พิมพ์ตามระดับชั้น </button></a>
                     </div>
                 </div>   
             </div>    
