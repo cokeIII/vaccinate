@@ -14,6 +14,8 @@ $mpdf = new mPDF();
 date_default_timezone_set("asia/bangkok");
 function DateThai($strDate)
 {
+    $exDate = explode("/", $strDate);
+    $strDate = ($exDate[2]) . "-" . $exDate[1] . "-" . $exDate[0];
     $strYear = date("Y", strtotime($strDate));
     $strMonth = date("n", strtotime($strDate));
     $strDay = date("j", strtotime($strDate));
@@ -28,6 +30,9 @@ function DateThai($strDate)
 ob_start(); // Start get HTML code
 $student_id = $_GET["id"];
 $bDate = $_GET["bDate"];
+$sqlSigCon = "select * from confirm where student_id = '$student_id'";
+$resSigCon = mysqli_query($conn, $sqlSigCon);
+$rowSigCon = mysqli_fetch_array($resSigCon);
 $sql3 = "select * from students s,prefix p where student_id = '$student_id' and s.prefix_id = p.prefix_id ";
 $res3 = mysqli_query($conn, $sql3);
 $row3 = mysqli_fetch_array($res3);
@@ -217,13 +222,15 @@ $row3 = mysqli_fetch_array($res3);
     </div>
     <?php if ($bDate > 17) { ?>
         <div class="center mt">
-            <div> ข้าพเจ้า <input type="checkbox" <?php //echo ($row["decision"] == 1 ? "checked='checked'" : "false"); ?> checked='checked'> ประสงค์ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
-            <div> <input type="checkbox" <?php //echo ($row["decision"] == 0 ? "checked='checked'" : "false"); ?>> ไม่ประสงค์ให้ฉีดวัคซีนไฟเซอร์<?php echo $row["note"]; ?></div>
+            <div> ข้าพเจ้า <input type="checkbox" <?php //echo ($row["decision"] == 1 ? "checked='checked'" : "false"); 
+                                                    ?> checked='checked'> ประสงค์ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
+            <div> <input type="checkbox" <?php //echo ($row["decision"] == 0 ? "checked='checked'" : "false"); 
+                                            ?>> ไม่ประสงค์ให้ฉีดวัคซีนไฟเซอร์<?php echo $row["note"]; ?></div>
             <div>และรับรองว่าข้อมูลเป็นความจริง</div>
             <?php if (file_exists("signature/" . $row["signature"]) && !empty($row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"></div>
             <?php } else { ?>
-                <div class="mt-s">ลงชื่อ..............................................................................</div>
+                <div class="mt-s">ลงชื่อ <img class="sig-size" src="signatureCon/<?php echo $rowSigCon["signature"]; ?>"> </div>
             <?php } ?>
             <div>(<?php echo $row3["prefix_name"] . $row3["stu_fname"] . " " . $row3["stu_lname"]; ?>)</div>
             <div> วันที่............./........................./..................</div>
@@ -231,8 +238,9 @@ $row3 = mysqli_fetch_array($res3);
                 ข้อควรรู้เกี่ยวกับโรคโควิด-19 และวัคซีนโควิด-19 สามารถดาวน์โหลดอ่านได้ที่ QR code</div>
         </div>
     <?php } ?>
-    <?php $sql = "select * from doc2 where student_id = '$student_id'
-        ";
+    <?php
+    $sql = "select * from doc2 where student_id = '$student_id'";
+
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res);
     if ($bDate < 18) {
@@ -339,7 +347,7 @@ $row3 = mysqli_fetch_array($res3);
                 <?php if (file_exists("signature/" . $row["signature"]) && !empty($row["signature"])) { ?>
                     <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
                 <?php } else { ?>
-                    <div class="mt-s">ลงชื่อ..............................................................................ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
+                    <div class="mt-s">ลงชื่อ <img class="sig-size" src="signatureCon/<?php echo $rowSigCon["signature"]; ?>"> ผู้ปกครอง/ผู้แทนโดยชอบธรรม</div>
                 <?php } ?>
                 <div>(<?php echo $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"]; ?>)</div>
                 <div> วันที่............./........................./..................</div>
@@ -393,7 +401,7 @@ $row3 = mysqli_fetch_array($res3);
             <?php if (file_exists("signature/" . $row["signature"]) && !empty($row["signature"])) { ?>
                 <div>ลงชื่อ <img class="sig-size" src="signature/<?php echo $row["signature"]; ?>"> <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม" : "") ?></div>
             <?php } else { ?>
-                <div class="mt-s">ลงชื่อ.............................................................................. <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม" : "") ?></div>
+                <div class="mt-s">ลงชื่อ <img class="sig-size" src="signatureCon/<?php echo $rowSigCon["signature"]; ?>"> <?php echo ($bDate < 18 ? "ผู้ปกครอง/ผู้แทนโดยชอบธรรม" : "") ?></div>
             <?php } ?>
             <div>(<?php echo ($bDate < 18 ? $row["prefix_parent"] . $row["parent_name"] . " " . $row["parent_surname"] : $row3["prefix_name"] . $row3["stu_fname"] . " " . $row3["stu_lname"]); ?>)</div>
             <div> วันที่............./........................./..................</div>
