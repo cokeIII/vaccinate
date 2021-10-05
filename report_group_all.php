@@ -176,7 +176,7 @@ ob_start(); // Start get HTML code
         INNER JOIN std_group on std_group.group_id=std.group_id
         WHERE stu_status.`student_status`='ประสงค์จะฉีด'
         and substr(std.group_id,1,3) like '$level'
-        order by std.student_id 
+        order by std_group.group_id
         ";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
