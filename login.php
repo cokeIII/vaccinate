@@ -57,17 +57,19 @@ if ($username == "admin" && $password == "12345678") {
                 header("location: video2.php");
             } else {
                 header("location: conInjectData.php");
+                header("location: fix.php");
             }
         } else {
             if (!cVideo($row["student_id"])) {
                 insertVideo($row["student_id"]);
                 header("location: video2.php");
             } else {
-                header("location: listVaccine.php");
+                // header("location: listVaccine.php");
+                header("location: listVacAfter.php");
             }
         }
         // fix
-        header("location: fix.php");
+        
     } else {
         header("location: errPage.php?textErr=ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง <a href='index.php'>เข้าสู่ระบบ<a/>");
     }
