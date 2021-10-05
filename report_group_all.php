@@ -1,7 +1,7 @@
 <?php
-// session_start();
-// $level=$_SESSION['level'];
-$level='642';
+session_start();
+$level=$_SESSION['level'];
+// $level='642';
 // Require composer autoload
 date_default_timezone_set("Asia/Bangkok");
 
