@@ -84,7 +84,7 @@ ob_start(); // Start get HTML code
 
         td,
         th {
-            font-size: 18px;
+            font-size: 12px;
             text-align: center;
             
         }
@@ -149,7 +149,7 @@ ob_start(); // Start get HTML code
 </head>
 
 <body class="content">
-    <h4 style="text-align: center">รายชื่อผู้ประสงค์ฉีดวัคซีน Pfizer สำหรับนักเรียน นักศึกษา ระดับชั้น ปวช.1-3 / ปวส.1-2</h4>
+    <h4 style="text-align: center">รายชื่อผู้ประสงค์ฉีดวัคซีน Pfizer สำหรับนักเรียน นักศึกษา ระดับชั้น <?php echo get_level($level) ?></h4>
 
             <table width="100%" >
                 <tr>
@@ -158,9 +158,9 @@ ob_start(); // Start get HTML code
                 <tr >
                     <td style="text-align: center">สังกัดอาชีวศึกษาจังหวัด ชลบุรี  ภาค ตะวันออก</td>
                 </tr>
-                <tr >
+                <!-- <tr >
                     <td style="text-align: center">ระดับชั้น <?php echo get_level($level) ?></td>
-                </tr>
+                </tr> -->
 
                 
             </table>
@@ -195,7 +195,7 @@ ob_start(); // Start get HTML code
                 <th class="center">วัน/เดือน/ปีเกิด</th> -->
                 <th class="center">อายุ (ปี)</th>
                 <th class="center">ความประสงค์รับวัคซีน</th>
-                <th width="" class="center">หมายเหตุ</th>
+                <!-- <th width="" class="center">หมายเหตุ</th> -->
             </tr>
             <?php
             $i = 0;
@@ -223,7 +223,7 @@ ob_start(); // Start get HTML code
                     <td ><?php echo $row['birthday']?></td> -->
                     <td ><?php echo calAgeV2($row['birthday'])[0]." ปี ".calAgeV2($row['birthday'])[1]." เดือน"?></td>
                     <td ><?php echo $row['student_status']?></td>
-                    <td></td>
+                    <!-- <td></td> -->
                 </tr>
             <?php } 
             if ($rowcount==0){
@@ -236,7 +236,7 @@ ob_start(); // Start get HTML code
                     <td> - </td> -->
                     <td> - </td>
                     <td> - </td>
-                    <td> - </td>
+                    <!-- <td> - </td> -->
                 </tr>
                 <?php
             }
