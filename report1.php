@@ -30,6 +30,9 @@ function DateThai($strDate)
 ob_start(); // Start get HTML code
 $student_id = $_GET["id"];
 $bDate = $_GET["bDate"];
+$sqlSigCon = "select * from confirm where student_id = '$student_id'";
+$resSigCon = mysqli_query($conn, $sqlSigCon);
+$rowSigCon = mysqli_fetch_array($resSigCon);
 $sql3 = "select * from students s,prefix p where student_id = '$student_id' and s.prefix_id = p.prefix_id ";
 $res3 = mysqli_query($conn, $sql3);
 $row3 = mysqli_fetch_array($res3);
@@ -237,9 +240,6 @@ $row3 = mysqli_fetch_array($res3);
     <?php } ?>
     <?php
     $sql = "select * from doc2 where student_id = '$student_id'";
-    $sqlSigCon = "select * from confirm where student_id = '$student_id'";
-    $resSigCon = mysqli_query($conn, $sqlSigCon);
-    $rowSigCon = mysqli_fetch_array($resSigCon);
 
     $res = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($res);
