@@ -186,10 +186,10 @@ $student_all = count_all_student();
                                 } else {
                                     $sum = count_sum($level, $row['student_group_id']);
                                 }
-                                if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
+                                if (status_sent($level, $row['student_group_id']) != 0 && $sum != 0) {
                                     $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
                                 } else {
-                                    $percent = status_sent($level, $row['student_group_id'])+1 / $sum * 100;
+                                    $percent = 100;
                                 }
                                 if ($percent >= 100) {
                                     $bg = 'bg-primary text-white';
