@@ -214,7 +214,7 @@ $student_all = count_all_student();
                                 if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
                                     $sum_percent = Array_sum($csent) / Array_sum($csum) * 100;
                                 } else {
-                                    $sum_percent = Array_sum($csent)+1 / Array_sum($csum)+1 * 100;
+                                    $sum_percent = (Array_sum($csent)+1) / (Array_sum($csum)+1) * 100;
                                 }
                                 ?>
                                 <td class="text-center"><?php echo number_format($sum_percent, 2) ?></td>
