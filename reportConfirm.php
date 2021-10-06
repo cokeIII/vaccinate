@@ -181,12 +181,13 @@ $student_all = count_all_student();
                                 <td class="text-center"><?php echo $csum[] = count_sum($level, $row['student_group_id']) ?></td>
                                 <td class="text-center"><?php echo $csent[] = status_sent($level, $row['student_group_id']) ?></td>
                                 <?php
-                                if (count_sum($level, $row['student_group_id']) == 0) {
-                                    $sum = 1;
-                                } else {
-                                    $sum = count_sum($level, $row['student_group_id']);
-                                }
-                                if (status_sent($level, $row['student_group_id']) != 0) {
+
+                                if (status_sent($level, $row['student_group_id']) != 0 && $sum != 0) {
+                                    if (count_sum($level, $row['student_group_id']) == 0) {
+                                        $sum = 1;
+                                    } else {
+                                        $sum = count_sum($level, $row['student_group_id']);
+                                    }
                                     $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
                                 } else {
                                     $percent = 100;
@@ -218,7 +219,7 @@ $student_all = count_all_student();
                                 if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
                                     $sum_percent = Array_sum($csent) / Array_sum($csum) * 100;
                                 } else {
-                                    $sum_percent = (Array_sum($csent)+1) / (Array_sum($csum)+1) * 100;
+                                    $sum_percent = (Array_sum($csent) + 1) / (Array_sum($csum) + 1) * 100;
                                 }
                                 ?>
                                 <td class="text-center"><?php echo number_format($sum_percent, 2) ?></td>
