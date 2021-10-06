@@ -181,7 +181,7 @@ $student_all = count_all_student();
                                 <td class="text-center"><?php echo $csum[] = count_sum($level, $row['student_group_id']) ?></td>
                                 <td class="text-center"><?php echo $csent[] = status_sent($level, $row['student_group_id']) ?></td>
                                 <?php
-
+                                $sum = count_sum($level, $row['student_group_id']);
                                 if (status_sent($level, $row['student_group_id']) != 0 && $sum != 0) {
                                     if (count_sum($level, $row['student_group_id']) == 0) {
                                         $sum = 1;
