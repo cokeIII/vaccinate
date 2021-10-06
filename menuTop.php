@@ -13,6 +13,7 @@
           <?php } ?>
           <?php if ($_SESSION["status"] == "officer" || $_SESSION["status"] == "teacher") { ?>
             <li class="nav-item active"><a class="nav-link" href="show_superviser.php"><i class="fas fa-file"></i> รายงานสรุปครูที่ปรึกษา</a></li>
+            <li class="nav-item active"><a class="nav-link" href="reportConfirm.php"><i class="fas fa-file"></i> รายงานการรับทราบข้อมูล</a></li>
             <li class="nav-item active"><a class="nav-link" href="show_sum_group.php"><i class="fas fa-file"></i> รายงานสรุป</a></li>
           <?php } ?>
           <?php if ($_SESSION["status"] == "admin") { ?>
