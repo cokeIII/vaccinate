@@ -186,7 +186,7 @@ $student_all = count_all_student();
                                 } else {
                                     $sum = count_sum($level, $row['student_group_id']);
                                 }
-                                if (status_sent($level, $row['student_group_id']) != 0 && $sum != 0) {
+                                if (status_sent($level, $row['student_group_id']) != 0) {
                                     $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
                                 } else {
                                     $percent = 100;
