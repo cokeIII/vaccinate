@@ -186,7 +186,11 @@ $student_all = count_all_student();
                                 } else {
                                     $sum = count_sum($level, $row['student_group_id']);
                                 }
-                                $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
+                                if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
+                                    $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
+                                } else {
+                                    $percent = status_sent($level, $row['student_group_id'])+1 / $sum * 100;
+                                }
                                 if ($percent >= 100) {
                                     $bg = 'bg-primary text-white';
                                 } else if ($percent < 70) {
@@ -214,7 +218,7 @@ $student_all = count_all_student();
                                 if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
                                     $sum_percent = Array_sum($csent) / Array_sum($csum) * 100;
                                 } else {
-                                    $sum_percent = 100;
+                                    $sum_percent = (Array_sum($csent)+1) / (Array_sum($csum)+1) * 100;
                                 }
                                 ?>
                                 <td class="text-center"><?php echo number_format($sum_percent, 2) ?></td>
