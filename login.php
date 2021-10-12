@@ -42,6 +42,7 @@ if ($username == "admin" && $password == "12345678") {
         $sqlCheck = "select * from stu_status where student_id = '$username'";
         $resCheck = mysqli_query($conn, $sqlCheck);
         $rowcountCheck = mysqli_num_rows($resCheck);
+        $rowC = mysqli_fetch_array($resCheck);
 
         $_SESSION["student_id"] = $row["student_id"];
         $_SESSION["prefix_name"] = $row["prefix_name"];
@@ -64,8 +65,11 @@ if ($username == "admin" && $password == "12345678") {
                 insertVideo($row["student_id"]);
                 header("location: video2.php");
             } else {
-                // header("location: listVaccine.php");
-                header("location: listVacAfter.php");
+                if($rowC["student_status"] == "ไม่ประสงค์ฉีด"){
+                    header("location: listVaccine.php");
+                } else {
+                    header("location: listVacAfter.php");
+                }
             }
         }
         // fix
