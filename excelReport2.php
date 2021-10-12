@@ -18,10 +18,13 @@ d.home_id as home_idD
 from stu_status ss
     inner join student s on ss.student_id = s.student_id
     left join doc2 d on d.student_id = ss.student_id
+    inner join people pp on pp.student_group_id = s.group_id
+    inner join std_group sg on sg.group_id = s.group_id
     inner join prefix p on s.perfix_id = p.prefix_id
     inner join tumbol t on s.tumbol_id = t.tumbol_id
     inner join amphure a on t.amphure_id = a.amphure_id
     inner join province pv on a.province_id = pv.province_id
+    where ss.student_status = 'ไม่ประสงค์ฉีด'
     ";
 $res = mysqli_query($conn, $sql);
 ?>
@@ -41,6 +44,8 @@ $res = mysqli_query($conn, $sql);
         <th>ID (เลข13 หลักบัตรประชาชน)</th>
         <th>เบอร์โทรศัพท์มือถือ</th>
         <th>ประสงค์รับวัคซีน</th>
+        <th>ครูที่ปรึกษา</th>
+        <th>ชั้น</th>
         <th>จังหวัด</th>
         <th>อำเภอ</th>
         <th>ตำบล</th>
@@ -64,6 +69,8 @@ $res = mysqli_query($conn, $sql);
                 <td>
                     <?php echo ($row["student_status"] == "ประสงค์จะฉีด" ? "รับ" : ($row["student_status"] == "ไม่ประสงค์ฉีด"?"ไม่รับ":$row["student_status"])); ?>
                 </td>
+                <td><?php echo $row["teacher_id1"]; ?></td>
+                <td><?php echo $row["group_name"]; ?></td>
                 <td>
                     <?php echo (empty($row["province_nameD"])?$row["province_name"]:$row["province_nameD"]); ?>
                 </td>
