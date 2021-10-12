@@ -18,7 +18,7 @@ d.home_id as home_idD
 from stu_status ss
     inner join student s on ss.student_id = s.student_id
     left join doc2 d on d.student_id = ss.student_id
-    inner join people pp on pp.student_group_id = s.group_id
+    inner join student_group pp on pp.student_group_id = s.group_id
     inner join std_group sg on sg.group_id = s.group_id
     inner join prefix p on s.perfix_id = p.prefix_id
     inner join tumbol t on s.tumbol_id = t.tumbol_id
