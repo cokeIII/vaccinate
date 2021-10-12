@@ -70,7 +70,7 @@ $res = mysqli_query($conn, $sql);
                 <td>
                     <?php echo ($row["student_status"] == "ประสงค์จะฉีด" ? "รับ" : ($row["student_status"] == "ไม่ประสงค์ฉีด"?"ไม่รับ":$row["student_status"])); ?>
                 </td>
-                <td><?php echo $row["people_name"]; ?></td>
+                <td><?php echo $row["people_name"]." ".$row["people_surname"]; ?></td>
                 <td><?php echo $row["group_name"]; ?></td>
                 <td>
                     <?php echo (empty($row["province_nameD"])?$row["province_name"]:$row["province_nameD"]); ?>
