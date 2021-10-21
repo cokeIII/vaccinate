@@ -60,7 +60,7 @@ $res = mysqli_query($conn, $sql);
         <?php
         $counter = 1;
         while ($row = mysqli_fetch_array($res)) {
-            if(calAgeV2($row["birthdayD"])[0] >= 16){
+            if(calAgeV2($row["birthdayD"])[0] <= 16){
         ?>
             <tr>
                 <td><?php echo $counter++; ?></td>
