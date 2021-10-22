@@ -285,7 +285,7 @@ $student_all = count_all_student();
     function get_zero_status()
     {
         global $conn;
-        $sql = "SELECT count(student_id) as c FROM `confirm` WHERE status_confirm2 = 0";
+        $sql = "SELECT count(student_id) as c FROM `confirm` WHERE status_confirm2 = '0'";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($res);
@@ -385,7 +385,7 @@ $student_all = count_all_student();
     function get_all_sent()
     {
         global $conn;
-        $sql = "SELECT count(*) as c FROM confirm WHERE student_id !=''";
+        $sql = "SELECT count(*) as c FROM confirm WHERE student_id !='' and status_confirm2 != ''";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($res);
