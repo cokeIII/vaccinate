@@ -93,9 +93,6 @@
                                         <div>ข้าพเจ้า <?php echo $row_doc2["prefix_parent"] . $row_doc2["parent_name"] . " " . $row_doc2["parent_surname"]; ?> หมายเลขโทรศัพท์ (ผู้ปกครอง) <?php echo ($row_doc2["phone_parent"] != "" ? $row_doc2["phone_parent"] : ($row_std["fat_tell"] != "" ? $row_std["fat_tell"] : ($row_std["mot_tell"] != "" ? $row_std["mot_tell"] : ($row_std["par_tell"] != "" ? $row_std["par_tell"] : "")))); ?></div>
                                         <div>ผู้ปกครองของ <?php echo $row_doc2["prefix_name"] . $row_doc2["stu_fname"] . " " . $row_doc2["stu_lname"]; ?> มีความสัมพันธ์เป็น <?php echo $row_doc2["relevance"]; ?></div>
                                         <br><br>
-                                        <div>ข้าพเจ้าได้รับทราบข้อมูลและได้ซักถามรายละเอียดจนเข้าใจเกี่ยวกับวัคซีนไฟเซอร์และอาการไม่พึงประสงค์ของวัคซีนที่อาจเกิดขึ้น เป็นที่เรียบยร้อยแล้ว</div>
-                                        <div>ข้าพเจ้า <input type="radio" name="status_confirm2" value="1" id="inject">ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
-                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="status_confirm2" value="0" id="noInject">ไม่ประสงค์ให้บุตรหลาน ฉีควัคซีนไฟเซอร์ <span>สาเหตุ (ถ้ามี) <input type="text" name="note" id="note"></span></div>
                                         <?php
                                         $sqlSig = "select * from confirm where student_id = '$student_id'";
                                         $resSig = mysqli_query($conn, $sqlSig);
@@ -104,6 +101,10 @@
                                         $rowSig =  mysqli_fetch_array($resSigRow);
                                         if ($rowSigNum < 1 || $rowSig["signature2"] == "") {
                                         ?>
+                                            <div>ข้าพเจ้าได้รับทราบข้อมูลและได้ซักถามรายละเอียดจนเข้าใจเกี่ยวกับวัคซีนไฟเซอร์และอาการไม่พึงประสงค์ของวัคซีนที่อาจเกิดขึ้น เป็นที่เรียบยร้อยแล้ว</div>
+                                            <div id="selectCon">ข้าพเจ้า <input type="radio" name="status_confirm2" value="1" id="inject"> ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ</div>
+                                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="status_confirm2" value="0" id="noInject"> ไม่ประสงค์ให้บุตรหลาน ฉีควัคซีนไฟเซอร์ <span>สาเหตุ (ถ้ามี) <input type="text" name="note" id="note"></span></div>
+
                                             <div id="sigNotShow">
                                                 <div class="row mt-3">
                                                     <div class="d-flex justify-content-center text-center">
@@ -129,12 +130,13 @@
                                                 <button class="btn btn-success" id="conf" type="button">รับทราบข้อมูล</button>
                                             </div>
                                         <?php } else { ?>
+                                            <div><?php echo ($rowSig["status_confirm2"] == 1?" ประสงค์ให้บุตรหลาน ฉีดวัคซีนไฟเซอร์โดยสมัครใจ":"ไม่ประสงค์ให้บุตรหลาน ฉีควัคซีนไฟเซอร์".($rowSig["note"]!=""?"สาเหตุ ".$rowSig["note"]:""));?></div>
                                             <div id="sigShow">
                                                 <div class="row mt-3">
                                                     <div class="d-flex justify-content-center text-center">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <div>ลงชื่อ <img class="sig-size" src="signatureCon/<?php echo $rowSig["signature"]; ?>"></div>
+                                                                <div>ลงชื่อ <img class="sig-size" src="signatureCon/<?php echo $rowSig["signature2"]; ?>"></div>
                                                                 <div>(<?php echo ($ageArr[0] > 17 ? $_SESSION["prefix_name"] . $_SESSION["stu_fname"] . " " . $_SESSION["stu_lname"] : $row_doc2["prefix_parent"] . $row_doc2["parent_name"] . " " . $row_doc2["parent_surname"]) ?>)</div>
                                                             </div>
                                                         </div>
@@ -189,7 +191,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="close btn btn-secondary" data-dismiss="modal">ปิด</button>
-                <button type="button" class="btn btn-primary" id="conf">ตกลง</button>
+                <button type="button" class="btn btn-primary" id="confE">ตกลง</button>
             </div>
         </div>
     </div>
@@ -233,57 +235,6 @@
         $(document).on('click', '#inject', function() {
             $("#note").hide()
         })
-
-        $(document).on("pagecreate", function() {
-
-            function scale(width, height, padding, border) {
-                var scrWidth = $(window).width() - 30,
-                    scrHeight = $(window).height() - 30,
-                    ifrPadding = 2 * padding,
-                    ifrBorder = 2 * border,
-                    ifrWidth = width + ifrPadding + ifrBorder,
-                    ifrHeight = height + ifrPadding + ifrBorder,
-                    h, w;
-
-                if (ifrWidth < scrWidth && ifrHeight < scrHeight) {
-                    w = ifrWidth;
-                    h = ifrHeight;
-                } else if ((ifrWidth / scrWidth) > (ifrHeight / scrHeight)) {
-                    w = scrWidth;
-                    h = (scrWidth / ifrWidth) * ifrHeight;
-                } else {
-                    h = scrHeight;
-                    w = (scrHeight / ifrHeight) * ifrWidth;
-                }
-                return {
-                    'width': w - (ifrPadding + ifrBorder),
-                    'height': h - (ifrPadding + ifrBorder)
-                };
-            };
-
-            $(".ui-popup iframe")
-                .attr("width", 0)
-                .attr("height", "auto");
-
-            $("#popup_video").on({
-                popupbeforeposition: function() {
-
-                    // here calling custom function scale() to get the width and height
-                    var size = scale(497, 298, 15, 1),
-                        w = size.width,
-                        h = size.height;
-                    $("#popup_video iframe")
-                        .attr("width", w)
-                        .attr("height", h);
-                },
-
-                popupafterclose: function() {
-                    $("#popup_video iframe")
-                        .attr("width", 0)
-                        .attr("height", 0);
-                }
-            });
-        });
 
         // $(document).on("click", ".view-pdf", function() {
         //     $("#modalPDF").modal("show")
@@ -337,6 +288,9 @@
             } else {
                 let status_confirm2 = $("input[name='status_confirm2']:checked").val();
                 let note = $("#note").val()
+                if (status_confirm2 == undefined) {
+                    return alert("กรุณาระบุความประสงค์")
+                }
                 $.ajax({
                     type: "POST",
                     url: "saveSignature2.php",
@@ -354,5 +308,28 @@
                 });
             }
         })
+        $(document).on('click', '#confE', function() {
+            if (picSig == "") {
+                return alert("กรุณาเซ็นลายเซ็น")
+            } else {
+                let status_confirm2 = $("input[name='status_confirm2']:checked").val();
+                let note = $("#note").val()
+                $.ajax({
+                    type: "POST",
+                    url: "saveSignature2.php",
+                    data: {
+                        signed: picSig,
+                        edit: true
+                    },
+                    success: function(result) {
+                        console.log(result)
+                        if (result == "ok") {
+                            window.location.replace("listVacAfter2.php");
+                        }
+                    }
+                });
+            }
+        })
+
     })
 </script>
