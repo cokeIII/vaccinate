@@ -68,7 +68,7 @@ if ($username == "admin" && $password == "12345678") {
                 if($rowC["student_status"] == "ไม่ประสงค์ฉีด"){
                     header("location: listVaccine.php");
                 } else {
-                    header("location: listVacAfter.php");
+                    header("location: listVacAfter2.php");
                 }
             }
         }
