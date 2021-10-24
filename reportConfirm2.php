@@ -201,7 +201,7 @@ $student_all = count_all_student();
                         <?php
                         $counter = 1;
                         while ($row = mysqli_fetch_array($res)) {
-                            if (count_sum($level, $row['student_group_id']) != 0) {
+                            // if (count_sum($level, $row['student_group_id']) != 0) {
                         ?>
                                 <tr>
                                     <td><?php echo $counter++ ?></td>
@@ -273,7 +273,7 @@ $student_all = count_all_student();
                 </table>
         <?php
                         }
-                    }
+                    // }
         ?>
         <br>
 
