@@ -322,8 +322,8 @@ $student_all = count_all_student();
     and group_id !='632090104'
     and group_id not LIKE '62202%'
     and group_id not LIKE '6122%'
-    and student.`student_group_id` != '633010403'
-    and student.`student_group_id` != '633010404'
+    and group_id != '633010403'
+    and group_id != '633010404'
     and ss.student_status = 'ประสงค์จะฉีด'";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
