@@ -58,7 +58,7 @@ if ($username == "admin" && $password == "12345678") {
                 header("location: video2.php");
             } else {
                 header("location: conInjectData.php");
-                header("location: fix.php");
+                // header("location: fix.php");
             }
         } else {
             if (!cVideo($row["student_id"])) {
