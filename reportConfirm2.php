@@ -150,7 +150,6 @@ $student_all = count_all_student();
                             and stdg.`student_group_id` not LIKE '6122%'
                             and stdg.`student_group_id` != '633010403'
                             and stdg.`student_group_id` != '633010404'
-                            
                             ORDER by stdg.`student_group_id`";
                 } else if ($level == '623') {
                     $sql = "SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
@@ -202,62 +201,63 @@ $student_all = count_all_student();
                         <?php
                         $counter = 1;
                         while ($row = mysqli_fetch_array($res)) {
+                            if (count_sum($level, $row['student_group_id']) != 0) {
                         ?>
-                            <tr>
-                                <td><?php echo $counter++ ?></td>
-                                <td><?php echo $row['name'] ?></td>
-                                <td><?php echo $row['group_name'] ?></td>
-                                <td><?php echo get_teacher_name($row['teacher_id1']) ?></td>
-                                <td class="text-center"><?php echo $csum[] = count_sum($level, $row['student_group_id']) ?></td>
-                                <td class="text-center"><?php echo $csent[] = status_sent($level, $row['student_group_id']) ?></td>
-                                <?php
-                                $sum = count_sum($level, $row['student_group_id']);
-                                if ($sum != 0) {
-                                    if (count_sum($level, $row['student_group_id']) == 0) {
-                                        $sum = 1;
+                                <tr>
+                                    <td><?php echo $counter++ ?></td>
+                                    <td><?php echo $row['name'] ?></td>
+                                    <td><?php echo $row['group_name'] ?></td>
+                                    <td><?php echo get_teacher_name($row['teacher_id1']) ?></td>
+                                    <td class="text-center"><?php echo $csum[] = count_sum($level, $row['student_group_id']) ?></td>
+                                    <td class="text-center"><?php echo $csent[] = status_sent($level, $row['student_group_id']) ?></td>
+                                    <?php
+                                    $sum = count_sum($level, $row['student_group_id']);
+                                    if ($sum != 0) {
+                                        if (count_sum($level, $row['student_group_id']) == 0) {
+                                            $sum = 1;
+                                        } else {
+                                            $sum = count_sum($level, $row['student_group_id']);
+                                        }
+                                        $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
                                     } else {
-                                        $sum = count_sum($level, $row['student_group_id']);
+                                        $percent = 100;
                                     }
-                                    $percent = status_sent($level, $row['student_group_id']) / $sum * 100;
-                                } else {
-                                    $percent = 100;
-                                }
-                                if ($percent >= 100) {
-                                    $bg = 'bg-primary text-white';
-                                } else if ($percent < 70) {
-                                    $bg = 'bg-danger text-white';
-                                } else {
-                                    $bg = '';
-                                }
-                                ?>
-                                <td class="text-center <?php echo $bg ?>"><?php echo number_format($percent, 2) ?></td>
-                                <td><a href="reportConfirmPdf2.php?group=<?php echo $row['student_group_id'] ?>" target="_blank"><button class="btn bg-info">print</button></a></td>
-                            </tr>
+                                    if ($percent >= 100) {
+                                        $bg = 'bg-primary text-white';
+                                    } else if ($percent < 70) {
+                                        $bg = 'bg-danger text-white';
+                                    } else {
+                                        $bg = '';
+                                    }
+                                    ?>
+                                    <td class="text-center <?php echo $bg ?>"><?php echo number_format($percent, 2) ?></td>
+                                    <td><a href="reportConfirmPdf2.php?group=<?php echo $row['student_group_id'] ?>" target="_blank"><button class="btn bg-info">print</button></a></td>
+                                </tr>
 
 
-                        <?php
-                        }
+                            <?php
+                            }
 
 
-                        if (is_array($csum)) {
-                        ?>
-                            <tr class="bg-info">
-                                <td colspan='4'></td>
-                                <td class="text-center"><?php echo Array_sum($csum) ?></td>
-                                <td class="text-center"><?php echo Array_sum($csent) ?></td>
-                                <?php
-                                if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
-                                    $sum_percent = Array_sum($csent) / Array_sum($csum) * 100;
-                                } else {
-                                    $sum_percent = (Array_sum($csent) + 1) / (Array_sum($csum) + 1) * 100;
-                                }
-                                ?>
-                                <td class="text-center"><?php echo number_format($sum_percent, 2) ?></td>
-                            </tr>
+                            if (is_array($csum)) {
+                            ?>
+                                <tr class="bg-info">
+                                    <td colspan='4'></td>
+                                    <td class="text-center"><?php echo Array_sum($csum) ?></td>
+                                    <td class="text-center"><?php echo Array_sum($csent) ?></td>
+                                    <?php
+                                    if (Array_sum($csent) != 0 && Array_sum($csum) != 0) {
+                                        $sum_percent = Array_sum($csent) / Array_sum($csum) * 100;
+                                    } else {
+                                        $sum_percent = (Array_sum($csent) + 1) / (Array_sum($csum) + 1) * 100;
+                                    }
+                                    ?>
+                                    <td class="text-center"><?php echo number_format($sum_percent, 2) ?></td>
+                                </tr>
 
-                        <?php
-                        }
-                        ?>
+                            <?php
+                            }
+                            ?>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -271,11 +271,11 @@ $student_all = count_all_student();
                         </tr>
                     </tfoot>
                 </table>
-            <?php
-            }
-
-            ?>
-            <br>
+        <?php
+                        }
+                    }
+        ?>
+        <br>
 
 
         </div>
@@ -322,6 +322,9 @@ $student_all = count_all_student();
     and group_id !='632090104'
     and group_id not LIKE '62202%'
     and group_id not LIKE '6122%'
+    and stdg.`student_group_id` != '633010403'
+    and stdg.`student_group_id` != '633010404'
+    and c != 0
     and ss.student_status = 'ประสงค์จะฉีด'";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
