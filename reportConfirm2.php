@@ -401,6 +401,7 @@ $student_all = count_all_student();
         INNER JOIN stu_status ss on ss.student_id = confirm.student_id
         WHERE confirm.student_id !='' 
         and status_confirm2 != ''
+        and  ss.student_id !=''
         and ss.student_status = 'ประสงค์จะฉีด'
         ";
         // echo $sql;
