@@ -355,8 +355,10 @@ $student_all = count_all_student();
         $id = $level . "%";
         $sql = "SELECT count(*) as c FROM confirm
     INNER JOIN student on student.student_id = confirm.student_id
+    INNER JOIN stu_status ss on ss.student_id = confirm.student_id
     where  student.`group_id` = '$gid' 
     -- and student.`group_id` like '$id'
+    and ss.student_status = 'ประสงค์จะฉีด'
     and status_confirm2 != ''
     ";
         // echo $sql;
