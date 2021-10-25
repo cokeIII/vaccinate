@@ -397,7 +397,12 @@ $student_all = count_all_student();
     function get_all_sent()
     {
         global $conn;
-        $sql = "SELECT count(*) as c FROM confirm WHERE student_id !='' and status_confirm2 != ''";
+        $sql = "SELECT count(*) as c FROM confirm 
+        INNER JOIN stu_status ss on ss.student_id = confirm.student_id
+        WHERE student_id !='' 
+        and status_confirm2 != ''
+        and student_status = ''
+        ";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($res);
