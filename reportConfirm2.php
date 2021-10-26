@@ -150,6 +150,7 @@ $student_all = count_all_student();
                             and stdg.`student_group_id` not LIKE '6122%'
                             and stdg.`student_group_id` != '633010403'
                             and stdg.`student_group_id` != '633010404'
+                            and stdg.`student_group_id` != '633010203'
                             ORDER by stdg.`student_group_id`";
                 } else if ($level == '623') {
                     $sql = "SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
@@ -161,9 +162,9 @@ $student_all = count_all_student();
                             and stdg.`student_group_id` !='632090103' and stdg.`student_group_id` !='632090104'
                             and stdg.`student_group_id` not LIKE '62202%'
                             and stdg.`student_group_id` not LIKE '6122%'
-                            and stdg.`student_group_id` != '633010403'
+                            and stdg.`student_group_id` != '633010403'	
                             and stdg.`student_group_id` != '633010404'
-
+                            and stdg.`student_group_id` != '633010203'
                             ORDER by stdg.`student_group_id`";
                 } else {
                     $sql = "SELECT stdg.`student_group_id`,stdg.`student_group_short_name` as name ,sg.group_name,stdg.`teacher_id1`
@@ -174,7 +175,7 @@ $student_all = count_all_student();
                             and stdg.`student_group_id` not LIKE '62202%'
                             and stdg.`student_group_id` != '633010403'
                             and stdg.`student_group_id` != '633010404'
-
+                            and stdg.`student_group_id` != '633010203'
                             ORDER by stdg.`student_group_id`";
                 }
 
@@ -324,6 +325,7 @@ $student_all = count_all_student();
     and group_id not LIKE '6122%'
     and group_id != '633010403'
     and group_id != '633010404'
+    and group_id != '633010203'
     and ss.student_status = 'ประสงค์จะฉีด'";
         // echo $sql;
         $res = mysqli_query($conn, $sql);
