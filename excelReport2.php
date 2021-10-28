@@ -14,18 +14,18 @@ d.tumbol_name as tumbol_nameD,
 d.amphure_name as amphure_nameD,
 d.province_name as province_nameD,
 d.moo as mooD,
-d.home_id as home_idD
+d.home_id as home_idD,
+ss.student_id as idS
 from stu_status ss
     inner join student s on ss.student_id = s.student_id
     left join doc2 d on d.student_id = ss.student_id
-    inner join student_group pp on pp.student_group_id = s.group_id
-    inner join people pe on pe.people_id = pp.teacher_id1
+    left join student_group pp on pp.student_group_id = s.group_id
+    left join people pe on pe.people_id = pp.teacher_id1
     inner join std_group sg on sg.group_id = s.group_id
     inner join prefix p on s.perfix_id = p.prefix_id
     inner join tumbol t on s.tumbol_id = t.tumbol_id
     inner join amphure a on t.amphure_id = a.amphure_id
     inner join province pv on a.province_id = pv.province_id
-    where ss.student_status = 'ไม่ประสงค์ฉีด'
     ";
 $res = mysqli_query($conn, $sql);
 ?>
@@ -37,6 +37,7 @@ $res = mysqli_query($conn, $sql);
 <table class="table" style="width:100%" border='1'>
     <tr>
         <th>ที่</th>
+        <th>รหัสนักเรียน</th>
         <th>คำนำหน้าชื่อ</th>
         <th>ชื่อ</th>
         <th>สกุล</th>
@@ -47,6 +48,7 @@ $res = mysqli_query($conn, $sql);
         <th>ประสงค์รับวัคซีน</th>
         <th>ครูที่ปรึกษา</th>
         <th>ชั้น</th>
+        <th>รหัสกลุ่ม</th>
         <th>จังหวัด</th>
         <th>อำเภอ</th>
         <th>ตำบล</th>
@@ -60,6 +62,7 @@ $res = mysqli_query($conn, $sql);
         ?>
             <tr>
                 <td><?php echo $counter++; ?></td>
+                <td><?php echo $row["idS"]; ?></td>
                 <td><?php echo $row["prefix_name"]; ?></td>
                 <td><?php echo $row["stu_fnameD"]; ?></td>
                 <td><?php echo $row["stu_lnameD"]; ?></td>
@@ -72,6 +75,7 @@ $res = mysqli_query($conn, $sql);
                 </td>
                 <td><?php echo $row["people_name"]." ".$row["people_surname"]; ?></td>
                 <td><?php echo $row["group_name"]; ?></td>
+                <td><?php echo $row["group_id"]; ?></td>
                 <td>
                     <?php echo (empty($row["province_nameD"])?$row["province_name"]:$row["province_nameD"]); ?>
                 </td>
