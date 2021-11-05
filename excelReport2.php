@@ -1,10 +1,10 @@
 <?php
 require_once "connect.php";
 require_once "function.php";
-// header("Content-Type: application/xls");
-// header("Content-Disposition: attachment; filename=export.xls");
-// header("Pragma: no-cache");
-// header("Expires: 0");
+header("Content-Type: application/xls");
+header("Content-Disposition: attachment; filename=export.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
 $sql = "select *,
 s.stu_fname as stu_fnameD,
 s.stu_lname as stu_lnameD,
