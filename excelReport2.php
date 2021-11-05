@@ -1,10 +1,10 @@
 <?php
 require_once "connect.php";
 require_once "function.php";
-header("Content-Type: application/xls");
-header("Content-Disposition: attachment; filename=export.xls");
-header("Pragma: no-cache");
-header("Expires: 0");
+// header("Content-Type: application/xls");
+// header("Content-Disposition: attachment; filename=export.xls");
+// header("Pragma: no-cache");
+// header("Expires: 0");
 $sql = "select *,
 s.stu_fname as stu_fnameD,
 s.stu_lname as stu_lnameD,
@@ -26,6 +26,7 @@ from stu_status ss
     inner join tumbol t on s.tumbol_id = t.tumbol_id
     inner join amphure a on t.amphure_id = a.amphure_id
     inner join province pv on a.province_id = pv.province_id
+    where ss.student_status = 'ไม่ประสงค์ฉีด' or ss.student_status = 'ได้รับเชื้อไม่เกิน3เดือน'
     ";
 $res = mysqli_query($conn, $sql);
 ?>
